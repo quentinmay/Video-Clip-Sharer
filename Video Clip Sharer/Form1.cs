@@ -196,7 +196,7 @@ namespace Video_Clip_Sharer
 
         async public Task importVideo(string path)
         {
-            FFMpegOptions.Configure(new FFMpegOptions { RootDirectory = this.ffmpegDirectory, TempDirectory = "/tmp" });
+            //FFMpegOptions.Configure(new FFMpegOptions { RootDirectory = this.ffmpegDirectory, TempDirectory = "/tmp" });
             IMediaAnalysis tmp = await FFProbe.AnalyseAsync(path);
 
             uiSettings.exportSettings.videoData = tmp;
@@ -637,8 +637,9 @@ namespace Video_Clip_Sharer
         async private Task setExport(ExportSettings exportSettings)
         {
             Console.WriteLine("\nStarting export...");
+            try { 
             var inputFile = new MediaFile(exportSettings.videoPath);
-            var ffmpeg = new Engine(this.ffmpegDirectory + "ffmpeg.exe");//"C:\\ffmpeg\\bin\\ffmpeg.exe");
+            var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
             ffmpeg.Progress += OnProgress;
             ffmpeg.Data += OnData;
             ffmpeg.Error += OnError;
@@ -647,6 +648,11 @@ namespace Video_Clip_Sharer
             string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
             linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
             await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+            } catch(Exception err)
+            {
+                Console.WriteLine(err);
+                MessageBox.Show("Error while booting ffmpeg.");
+            }
             //await ffmpeg.ExecuteAsync(@"-i F:\Desktop\yeahaight.mp4 -vf scale=1920:1080,setsar=1:1 F:\Desktop\output.mp4");
             return;
 
@@ -685,9 +691,8 @@ namespace Video_Clip_Sharer
             {
                 progressBarRender.Value = progress;
             }
+
             labelPercentComplete.Text = progressBarRender.Value.ToString() + "%";
-
-
             labelRenderTimeElapsed.Text = "Time Elapsed: " + TimeSpan.FromSeconds(e.ProcessedDuration.TotalSeconds).ToString(@"hh\h\:mm\m\:ss\s");
             labelFileSize.Text = "File Size: " + ((double)e.SizeKb / (double)1000).ToString(".0") + "MBs";
             Console.WriteLine("Bitrate: {0}", e.Bitrate);
@@ -712,10 +717,12 @@ namespace Video_Clip_Sharer
 
         private void OnComplete(object sender, ConversionCompleteEventArgs e)
         {
-            progressBarRender.Value = 100;
-            Console.WriteLine("\nCompleted");
             cancelSource.Cancel();
             cancelSource = null;
+            progressBarRender.Value = 100;
+            labelPercentComplete.Text = progressBarRender.Value.ToString() + "%";
+            Console.WriteLine("\nCompleted");
+
             return;
             Console.WriteLine("Completed conversion from {0} to {1}", e.Input.FileInfo.FullName, e.Output.FileInfo.FullName);
         }
@@ -741,7 +748,14 @@ namespace Video_Clip_Sharer
             }
             if (cancelSource == null) //checks to see if ffmpeg process already running. Don't want to run if there is already a render going.
             {
-                setExport(uiSettings.exportSettings);
+                try
+                {
+                    setExport(uiSettings.exportSettings);
+                }
+                catch (Exception err)
+                {
+                    Console.WriteLine(err);
+                }
             }
             else
             {

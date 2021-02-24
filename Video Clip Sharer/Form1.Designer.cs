@@ -117,6 +117,7 @@ namespace Video_Clip_Sharer
             this.buttonTestPlayVideo.TabIndex = 2;
             this.buttonTestPlayVideo.Text = "buttonTestPlayVideo";
             this.buttonTestPlayVideo.UseVisualStyleBackColor = true;
+            this.buttonTestPlayVideo.Visible = false;
             this.buttonTestPlayVideo.Click += new System.EventHandler(this.buttonTestPlayVideo_Click);
             // 
             // panel1
@@ -527,7 +528,7 @@ namespace Video_Clip_Sharer
             // 
             this.labelPercentComplete.AutoSize = true;
             this.labelPercentComplete.BackColor = System.Drawing.Color.Transparent;
-            this.labelPercentComplete.Location = new System.Drawing.Point(686, 505);
+            this.labelPercentComplete.Location = new System.Drawing.Point(684, 505);
             this.labelPercentComplete.Name = "labelPercentComplete";
             this.labelPercentComplete.Size = new System.Drawing.Size(21, 13);
             this.labelPercentComplete.TabIndex = 45;
