@@ -829,11 +829,12 @@ namespace Video_Clip_Sharer
         //Event for when we change the trackBarVolume. Assuming 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e)
         {
+            labelVolume.Text = trackBarVolume.Value.ToString();
             if (uiSettings.exportSettings.audioTracks.Count > 0) //We need to make sure the audioTracks exist or might cause issues.
             {
                 //axVLCPlugin21.audio.volume = trackBarVolume.Value; <-- im pretty sure spamming changes to this crashes the program.
                 uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].volume = trackBarVolume.Value;
-                labelVolume.Text = trackBarVolume.Value.ToString();
+                
             }
 
         }
