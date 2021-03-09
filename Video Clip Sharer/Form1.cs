@@ -195,7 +195,7 @@ namespace Video_Clip_Sharer
 
         async public Task importVideo(string path)
         {
-            //FFMpegOptions.Configure(new FFMpegOptions { RootDirectory = this.ffmpegDirectory, TempDirectory = "/tmp" });
+            FFMpegOptions.Configure(new FFMpegOptions { RootDirectory = this.ffmpegDirectory, TempDirectory = "/tmp" });
             IMediaAnalysis tmp = await FFProbe.AnalyseAsync(path);
 
             uiSettings.exportSettings.videoData = tmp;
@@ -271,6 +271,7 @@ namespace Video_Clip_Sharer
             }
             catch (Exception err)
             {
+                textBoxLog.Text = err.ToString();
                 Console.WriteLine(err.ToString());
                 MessageBox.Show("Error initializing UI.");
             }
