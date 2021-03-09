@@ -84,6 +84,10 @@ namespace Video_Clip_Sharer
             this.labelDirectoryLoadTime = new System.Windows.Forms.Label();
             this.textBoxFFmpegBinaries = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.textBoxSearchListView = new System.Windows.Forms.TextBox();
+            this.comboBoxOutputFormat = new System.Windows.Forms.ComboBox();
+            this.textBoxScaleX = new System.Windows.Forms.TextBox();
+            this.textBoxScaleY = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -292,7 +296,7 @@ namespace Video_Clip_Sharer
             this.date,
             this.fileSize});
             this.listViewVideos.HideSelection = false;
-            this.listViewVideos.Location = new System.Drawing.Point(710, 114);
+            this.listViewVideos.Location = new System.Drawing.Point(710, 127);
             this.listViewVideos.Name = "listViewVideos";
             this.listViewVideos.Size = new System.Drawing.Size(316, 247);
             this.listViewVideos.TabIndex = 22;
@@ -451,7 +455,7 @@ namespace Video_Clip_Sharer
             // 
             // trackBarVolume
             // 
-            this.trackBarVolume.Location = new System.Drawing.Point(835, 57);
+            this.trackBarVolume.Location = new System.Drawing.Point(835, 33);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(191, 45);
@@ -476,7 +480,7 @@ namespace Video_Clip_Sharer
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(832, 43);
+            this.label4.Location = new System.Drawing.Point(832, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 40;
@@ -485,7 +489,7 @@ namespace Video_Clip_Sharer
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(819, 63);
+            this.labelVolume.Location = new System.Drawing.Point(819, 39);
             this.labelVolume.Name = "labelVolume";
             this.labelVolume.Size = new System.Drawing.Size(25, 13);
             this.labelVolume.TabIndex = 39;
@@ -493,7 +497,7 @@ namespace Video_Clip_Sharer
             // 
             // trackBarAudioTrack
             // 
-            this.trackBarAudioTrack.Location = new System.Drawing.Point(703, 55);
+            this.trackBarAudioTrack.Location = new System.Drawing.Point(703, 31);
             this.trackBarAudioTrack.Maximum = 1;
             this.trackBarAudioTrack.Minimum = 1;
             this.trackBarAudioTrack.Name = "trackBarAudioTrack";
@@ -507,7 +511,7 @@ namespace Video_Clip_Sharer
             this.checkBoxSaveAudioTrack.AutoSize = true;
             this.checkBoxSaveAudioTrack.Checked = true;
             this.checkBoxSaveAudioTrack.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSaveAudioTrack.Location = new System.Drawing.Point(822, 23);
+            this.checkBoxSaveAudioTrack.Location = new System.Drawing.Point(822, 0);
             this.checkBoxSaveAudioTrack.Name = "checkBoxSaveAudioTrack";
             this.checkBoxSaveAudioTrack.Size = new System.Drawing.Size(105, 17);
             this.checkBoxSaveAudioTrack.TabIndex = 42;
@@ -518,7 +522,7 @@ namespace Video_Clip_Sharer
             // labelCurrentAudioTrack
             // 
             this.labelCurrentAudioTrack.AutoSize = true;
-            this.labelCurrentAudioTrack.Location = new System.Drawing.Point(698, 42);
+            this.labelCurrentAudioTrack.Location = new System.Drawing.Point(698, 18);
             this.labelCurrentAudioTrack.Name = "labelCurrentAudioTrack";
             this.labelCurrentAudioTrack.Size = new System.Drawing.Size(114, 13);
             this.labelCurrentAudioTrack.TabIndex = 44;
@@ -537,7 +541,7 @@ namespace Video_Clip_Sharer
             // textBoxVideoListPath
             // 
             this.textBoxVideoListPath.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBoxVideoListPath.Location = new System.Drawing.Point(710, 82);
+            this.textBoxVideoListPath.Location = new System.Drawing.Point(710, 95);
             this.textBoxVideoListPath.Name = "textBoxVideoListPath";
             this.textBoxVideoListPath.Size = new System.Drawing.Size(316, 20);
             this.textBoxVideoListPath.TabIndex = 46;
@@ -558,7 +562,7 @@ namespace Video_Clip_Sharer
             // 
             this.labelDirectoryLoadTime.AutoSize = true;
             this.labelDirectoryLoadTime.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.labelDirectoryLoadTime.Location = new System.Drawing.Point(707, 101);
+            this.labelDirectoryLoadTime.Location = new System.Drawing.Point(707, 114);
             this.labelDirectoryLoadTime.Name = "labelDirectoryLoadTime";
             this.labelDirectoryLoadTime.Size = new System.Drawing.Size(105, 13);
             this.labelDirectoryLoadTime.TabIndex = 48;
@@ -569,7 +573,7 @@ namespace Video_Clip_Sharer
             this.textBoxFFmpegBinaries.BackColor = System.Drawing.Color.Red;
             this.textBoxFFmpegBinaries.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFFmpegBinaries.ForeColor = System.Drawing.Color.Transparent;
-            this.textBoxFFmpegBinaries.Location = new System.Drawing.Point(813, 4);
+            this.textBoxFFmpegBinaries.Location = new System.Drawing.Point(445, 6);
             this.textBoxFFmpegBinaries.Name = "textBoxFFmpegBinaries";
             this.textBoxFFmpegBinaries.Size = new System.Drawing.Size(213, 20);
             this.textBoxFFmpegBinaries.TabIndex = 49;
@@ -578,11 +582,50 @@ namespace Video_Clip_Sharer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(700, 7);
+            this.label5.Location = new System.Drawing.Point(332, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(113, 13);
             this.label5.TabIndex = 50;
             this.label5.Text = "FFmpeg Binaries Path:";
+            // 
+            // textBoxSearchListView
+            // 
+            this.textBoxSearchListView.Location = new System.Drawing.Point(710, 69);
+            this.textBoxSearchListView.Name = "textBoxSearchListView";
+            this.textBoxSearchListView.Size = new System.Drawing.Size(316, 20);
+            this.textBoxSearchListView.TabIndex = 51;
+            this.textBoxSearchListView.TextChanged += new System.EventHandler(this.textBoxSearchListView_TextChanged);
+            // 
+            // comboBoxOutputFormat
+            // 
+            this.comboBoxOutputFormat.FormattingEnabled = true;
+            this.comboBoxOutputFormat.Items.AddRange(new object[] {
+            "h264",
+            "h265",
+            "h264nvidia",
+            "h265nvidia",
+            "vp9",
+            "gif"});
+            this.comboBoxOutputFormat.Location = new System.Drawing.Point(710, 387);
+            this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
+            this.comboBoxOutputFormat.Size = new System.Drawing.Size(145, 21);
+            this.comboBoxOutputFormat.TabIndex = 54;
+            this.comboBoxOutputFormat.Text = "Output Format";
+            this.comboBoxOutputFormat.SelectedIndexChanged += new System.EventHandler(this.comboBoxOutputFormat_SelectedIndexChanged);
+            // 
+            // textBoxScaleX
+            // 
+            this.textBoxScaleX.Location = new System.Drawing.Point(148, 505);
+            this.textBoxScaleX.Name = "textBoxScaleX";
+            this.textBoxScaleX.Size = new System.Drawing.Size(56, 20);
+            this.textBoxScaleX.TabIndex = 55;
+            // 
+            // textBoxScaleY
+            // 
+            this.textBoxScaleY.Location = new System.Drawing.Point(222, 505);
+            this.textBoxScaleY.Name = "textBoxScaleY";
+            this.textBoxScaleY.Size = new System.Drawing.Size(56, 20);
+            this.textBoxScaleY.TabIndex = 56;
             // 
             // Form1
             // 
@@ -590,6 +633,10 @@ namespace Video_Clip_Sharer
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.Controls.Add(this.textBoxScaleY);
+            this.Controls.Add(this.textBoxScaleX);
+            this.Controls.Add(this.comboBoxOutputFormat);
+            this.Controls.Add(this.textBoxSearchListView);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxFFmpegBinaries);
             this.Controls.Add(this.textBoxVideoListPath);
@@ -715,6 +762,10 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label labelDirectoryLoadTime;
         private System.Windows.Forms.TextBox textBoxFFmpegBinaries;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxSearchListView;
+        private System.Windows.Forms.ComboBox comboBoxOutputFormat;
+        private System.Windows.Forms.TextBox textBoxScaleX;
+        private System.Windows.Forms.TextBox textBoxScaleY;
     }
 }
 

@@ -28,7 +28,6 @@ namespace Video_Clip_Sharer
         private string ffmpegDirectory;
         private CancellationTokenSource cancelSource;
 
-
         public Form1()
         {
 
@@ -216,6 +215,8 @@ namespace Video_Clip_Sharer
             axVLCPlugin21.Refresh();
             axVLCPlugin21.playlist.playItem(id);
             axVLCPlugin21.volume = 10;
+            uiSettings.exportSettings.scale = axVLCPlugin21.Size;
+            uiSettings.exportSettings.outputScale = axVLCPlugin21.Size;
 
             return;
 
@@ -301,9 +302,36 @@ namespace Video_Clip_Sharer
                 pictureBoxLeftCrop.Width = 0;
                 pictureBoxRightCrop.Width = 0;
                 pictureBoxRightCrop.Location = rightOriginalLocation;
+      
             }
 
 
+        }
+
+        //Function very similar to visualizeCrop. But instead of visualizing, we want to set the outputScale to reflect the crop.
+        async public void setScaleFromCrop(AxAXVLC.AxVLCPlugin2 axVLCPlugin)
+        {
+
+            if (uiSettings.exportSettings.crop.cropPosition1.X >= 0 && uiSettings.exportSettings.crop.cropPosition2.X == -1)//Crop 1 set but not crop 2 yet. 
+            {
+                return;
+            }
+            else if (uiSettings.exportSettings.crop.cropPosition1.X >= 0 && uiSettings.exportSettings.crop.cropPosition2.X > 0)//Crop 2 set, so we have a new scale.
+            {
+                //Sets scale of video to the scaled size of the video
+                uiSettings.exportSettings.outputScale = new Size(uiSettings.exportSettings.crop.cropPosition1.X - uiSettings.exportSettings.crop.cropPosition2.X, uiSettings.exportSettings.crop.cropPosition1.Y - uiSettings.exportSettings.crop.cropPosition2.Y); 
+
+            }
+            else //Otherwise, neither crop position is set, so that means were trying to reset the scale.
+            {
+                uiSettings.exportSettings.outputScale = uiSettings.exportSettings.scale; 
+            }
+            
+        }
+
+        async public void updateScaleTextBox()
+        {
+            //textBoxScaleX.Text = 
         }
 
         async public void setStart(double currentTime)
@@ -881,6 +909,16 @@ namespace Video_Clip_Sharer
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBoxSearchListView_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            uiSettings.exportSettings.outputFormat = comboBoxOutputFormat.SelectedItem.ToString();
         }
     }
 

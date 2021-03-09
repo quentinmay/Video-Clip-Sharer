@@ -13,9 +13,7 @@ namespace Video_Clip_Sharer
     class ExportSettings
     {
         public string videoPath { get; set; }
-
         public IMediaAnalysis videoData { get; set; }
-        
         public List<AudioTrack> audioTracks { get; }
         public Crop crop { get; set; }
         public Size reScale { get; }
@@ -24,6 +22,9 @@ namespace Video_Clip_Sharer
         public int quality { get; set; }
         public double fps { get; set; }
         public string outputName { get; set; }
+        public string outputFormat { get; set; }
+        public Size scale { get; set; }
+        public Size outputScale { get; set; }
 
 
         public ExportSettings()
@@ -37,6 +38,7 @@ namespace Video_Clip_Sharer
             this.quality = 10;
             this.fps = -1;
             this.outputName = "";
+            this.outputFormat = "h264"; //default to h264
         }
 
         
@@ -66,25 +68,34 @@ namespace Video_Clip_Sharer
             ffmpegCommandList.Add(input);
             //Default code and settings
             //set filter_complex for multiple audio channels
-            
-            ffmpegCommandList.Add(await this.generateAudioTracksTag());
+            switch(this.outputFormat)
+            {
+                case "gif"://http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html use this for generating beter commands meant for gifs.
 
-            ffmpegCommandList.Add(await this.generateVFTag());
+                    return "";
+                    break; 
+                default: //any format other than gif. Need to add more 
+                    ffmpegCommandList.Add(await this.generateAudioTracksTag());
 
-            ffmpegCommandList.Add(await this.generateQualityTag());
+                    ffmpegCommandList.Add(await this.generateVFTag());
 
-            ffmpegCommandList.Add(await this.generateStartTag());
+                    ffmpegCommandList.Add(await this.generateQualityTag());
 
-            ffmpegCommandList.Add(await this.generateEndTag());
+                    ffmpegCommandList.Add(await this.generateStartTag());
 
-            ffmpegCommandList.Add(await this.generateFPSTag());
+                    ffmpegCommandList.Add(await this.generateEndTag());
 
-            ffmpegCommandList.Add(await this.generateOutputTag());
+                    ffmpegCommandList.Add(await this.generateFPSTag());
 
-            //Removes empty string that would just add extra spaces. Then formats the list as a runnable string command
-            ffmpegCommandList.RemoveAll(s => string.IsNullOrEmpty(s));
-            string ffmpegCommand = String.Join(" ", ffmpegCommandList);
-            return ffmpegCommand;
+                    ffmpegCommandList.Add(await this.generateOutputTag());
+
+                    //Removes empty string that would just add extra spaces. Then formats the list as a runnable string command
+                    ffmpegCommandList.RemoveAll(s => string.IsNullOrEmpty(s));
+                    string ffmpegCommand = String.Join(" ", ffmpegCommandList);
+                    return ffmpegCommand;
+                    break;
+            }
+
         }
 
         //Uses the 
