@@ -331,7 +331,19 @@ namespace Video_Clip_Sharer
 
         async public void updateScaleTextBox()
         {
-            //textBoxScaleX.Text = 
+            try
+            {
+                if (!String.IsNullOrEmpty(textBoxScaleX.Text))
+                {
+                    double reverseAspectRatio = (double)uiSettings.exportSettings.outputScale.Height / (double)uiSettings.exportSettings.outputScale.Width;
+                    textBoxScaleY.Text = ""+Math.Floor(reverseAspectRatio * double.Parse(textBoxScaleX.Text));
+                    uiSettings.exportSettings.outputScale = new Size(int.Parse(textBoxScaleX.Text), int.Parse(textBoxScaleY.Text));
+
+
+            }
+            } catch (Exception err) {
+                Console.WriteLine(err);
+            }
         }
 
         async public void setStart(double currentTime)
@@ -919,6 +931,23 @@ namespace Video_Clip_Sharer
         private void comboBoxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             uiSettings.exportSettings.outputFormat = comboBoxOutputFormat.SelectedItem.ToString();
+        }
+
+        private void textBoxScaleX_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (!double.IsNaN(double.Parse(textBoxScaleX.Text)))
+                {
+                    updateScaleTextBox();
+                }
+            } catch(Exception err)
+            {
+                Console.WriteLine(err);
+            }
+
+            
         }
     }
 

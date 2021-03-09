@@ -72,7 +72,16 @@ namespace Video_Clip_Sharer
             {
                 case "gif"://http://blog.pkh.me/p/21-high-quality-gif-with-ffmpeg.html use this for generating beter commands meant for gifs.
 
-                    return "";
+                    ffmpegCommandList.Add(await this.generateGifVfTag());
+
+                    ffmpegCommandList.Add(await this.generateStartTag());
+
+                    ffmpegCommandList.Add(await this.generateEndTag());
+
+                    ffmpegCommandList.Add(await this.generateOutputTag());
+
+                    string ffmpegCommandGif = String.Join(" ", ffmpegCommandList);
+                    return ffmpegCommandGif;
                     break; 
                 default: //any format other than gif. Need to add more 
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
@@ -98,20 +107,45 @@ namespace Video_Clip_Sharer
 
         }
 
+        async public Task<string> generateGifVfTag()
+        {
+            string vfString = "";
+            if (crop.cropPosition2.X != -1)
+            {
+                vfString = "-vf crop=" + crop.cropSize.Width + ":" + crop.cropSize.Height + ":" + crop.cropPosition1.X + ":" + crop.cropPosition2.Y + ",fps=" + this.fps + ",scale=" + this.outputScale.Width + ":-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
+            } else
+            {
+                vfString = "-vf fps=" + this.fps + ",scale=" + this.outputScale.Width + ":-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
+            }
+            return vfString;
+
+        }
+
         //Uses the 
         async public Task<string> generateOutputTag()
         {
             string directory = Path.GetDirectoryName(videoPath);
             string fileName = "";
+            string extension = "";
+            switch(this.outputFormat)
+            {
+                case "gif":
+                    extension = ".gif";
+                    break;
+                default:
+                    extension = Path.GetExtension(videoPath);
+                    break;
+            }
             
             if (String.IsNullOrEmpty(outputName)) {
                 fileName = "Clipped-" + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + "-" + Path.GetFileName((string)videoData.Path).ToString();
             } else
             {
-                fileName = outputName + Path.GetExtension(videoPath);
+                fileName = outputName;
             }
-            this.outputName = Path.Combine(directory, fileName).ToString();
-            return "\"" + Path.Combine(directory, fileName).ToString() + "\"";
+            
+            this.outputName = Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension); //changes extension after.
+            return "\"" + Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension).ToString() + "\"";
 
         }
         async public Task<string> generateFPSTag()

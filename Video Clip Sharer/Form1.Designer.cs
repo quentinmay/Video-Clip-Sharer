@@ -119,9 +119,8 @@ namespace Video_Clip_Sharer
             this.buttonTestPlayVideo.Name = "buttonTestPlayVideo";
             this.buttonTestPlayVideo.Size = new System.Drawing.Size(99, 52);
             this.buttonTestPlayVideo.TabIndex = 2;
-            this.buttonTestPlayVideo.Text = "buttonTestPlayVideo";
+            this.buttonTestPlayVideo.Text = "Generate FFMPEG command";
             this.buttonTestPlayVideo.UseVisualStyleBackColor = true;
-            this.buttonTestPlayVideo.Visible = false;
             this.buttonTestPlayVideo.Click += new System.EventHandler(this.buttonTestPlayVideo_Click);
             // 
             // panel1
@@ -619,6 +618,7 @@ namespace Video_Clip_Sharer
             this.textBoxScaleX.Name = "textBoxScaleX";
             this.textBoxScaleX.Size = new System.Drawing.Size(56, 20);
             this.textBoxScaleX.TabIndex = 55;
+            this.textBoxScaleX.TextChanged += new System.EventHandler(this.textBoxScaleX_TextChanged);
             // 
             // textBoxScaleY
             // 
