@@ -91,6 +91,7 @@ namespace Video_Clip_Sharer
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -165,7 +166,7 @@ namespace Video_Clip_Sharer
             // checkBoxStayInBoundary
             // 
             this.checkBoxStayInBoundary.AutoSize = true;
-            this.checkBoxStayInBoundary.Location = new System.Drawing.Point(13, 413);
+            this.checkBoxStayInBoundary.Location = new System.Drawing.Point(13, 404);
             this.checkBoxStayInBoundary.Name = "checkBoxStayInBoundary";
             this.checkBoxStayInBoundary.Size = new System.Drawing.Size(107, 17);
             this.checkBoxStayInBoundary.TabIndex = 9;
@@ -177,7 +178,7 @@ namespace Video_Clip_Sharer
             this.checkBoxShowCrop.AutoSize = true;
             this.checkBoxShowCrop.Checked = true;
             this.checkBoxShowCrop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxShowCrop.Location = new System.Drawing.Point(126, 413);
+            this.checkBoxShowCrop.Location = new System.Drawing.Point(126, 404);
             this.checkBoxShowCrop.Name = "checkBoxShowCrop";
             this.checkBoxShowCrop.Size = new System.Drawing.Size(78, 17);
             this.checkBoxShowCrop.TabIndex = 10;
@@ -273,7 +274,7 @@ namespace Video_Clip_Sharer
             // 
             // buttonSetStart
             // 
-            this.buttonSetStart.Location = new System.Drawing.Point(12, 434);
+            this.buttonSetStart.Location = new System.Drawing.Point(12, 425);
             this.buttonSetStart.Name = "buttonSetStart";
             this.buttonSetStart.Size = new System.Drawing.Size(75, 23);
             this.buttonSetStart.TabIndex = 20;
@@ -283,7 +284,7 @@ namespace Video_Clip_Sharer
             // 
             // buttonSetEnd
             // 
-            this.buttonSetEnd.Location = new System.Drawing.Point(93, 434);
+            this.buttonSetEnd.Location = new System.Drawing.Point(93, 425);
             this.buttonSetEnd.Name = "buttonSetEnd";
             this.buttonSetEnd.Size = new System.Drawing.Size(75, 23);
             this.buttonSetEnd.TabIndex = 21;
@@ -366,7 +367,7 @@ namespace Video_Clip_Sharer
             // 
             // buttonClearCrop
             // 
-            this.buttonClearCrop.Location = new System.Drawing.Point(12, 459);
+            this.buttonClearCrop.Location = new System.Drawing.Point(12, 450);
             this.buttonClearCrop.Name = "buttonClearCrop";
             this.buttonClearCrop.Size = new System.Drawing.Size(75, 23);
             this.buttonClearCrop.TabIndex = 27;
@@ -421,7 +422,7 @@ namespace Video_Clip_Sharer
             // labelFFmpegConsole
             // 
             this.labelFFmpegConsole.AutoSize = true;
-            this.labelFFmpegConsole.Location = new System.Drawing.Point(10, 522);
+            this.labelFFmpegConsole.Location = new System.Drawing.Point(10, 523);
             this.labelFFmpegConsole.Name = "labelFFmpegConsole";
             this.labelFFmpegConsole.Size = new System.Drawing.Size(89, 13);
             this.labelFFmpegConsole.TabIndex = 33;
@@ -577,7 +578,7 @@ namespace Video_Clip_Sharer
             this.textBoxFFmpegBinaries.ForeColor = System.Drawing.Color.Transparent;
             this.textBoxFFmpegBinaries.Location = new System.Drawing.Point(445, 6);
             this.textBoxFFmpegBinaries.Name = "textBoxFFmpegBinaries";
-            this.textBoxFFmpegBinaries.Size = new System.Drawing.Size(213, 20);
+            this.textBoxFFmpegBinaries.Size = new System.Drawing.Size(207, 20);
             this.textBoxFFmpegBinaries.TabIndex = 49;
             this.textBoxFFmpegBinaries.Click += new System.EventHandler(this.textBoxFFmpegBinaries_Click);
             // 
@@ -613,7 +614,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxScaleX
             // 
-            this.textBoxScaleX.Location = new System.Drawing.Point(91, 502);
+            this.textBoxScaleX.Location = new System.Drawing.Point(90, 476);
             this.textBoxScaleX.Name = "textBoxScaleX";
             this.textBoxScaleX.Size = new System.Drawing.Size(56, 20);
             this.textBoxScaleX.TabIndex = 55;
@@ -621,7 +622,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxScaleY
             // 
-            this.textBoxScaleY.Location = new System.Drawing.Point(155, 502);
+            this.textBoxScaleY.Location = new System.Drawing.Point(154, 476);
             this.textBoxScaleY.Name = "textBoxScaleY";
             this.textBoxScaleY.ReadOnly = true;
             this.textBoxScaleY.Size = new System.Drawing.Size(56, 20);
@@ -630,7 +631,7 @@ namespace Video_Clip_Sharer
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(146, 504);
+            this.label6.Location = new System.Drawing.Point(145, 478);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(12, 13);
             this.label6.TabIndex = 57;
@@ -639,7 +640,7 @@ namespace Video_Clip_Sharer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(102, 487);
+            this.label7.Location = new System.Drawing.Point(101, 461);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 13);
             this.label7.TabIndex = 58;
@@ -648,11 +649,21 @@ namespace Video_Clip_Sharer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(165, 487);
+            this.label8.Location = new System.Drawing.Point(164, 461);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(38, 13);
             this.label8.TabIndex = 59;
             this.label8.Text = "Height";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label9.Location = new System.Drawing.Point(10, 471);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(95, 52);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "Hotkeys:\r\nSet Start \"[\"\r\nSet End \"]\"\r\nSet Crop Point \"C\"\r\n";
             // 
             // Form1
             // 
@@ -714,6 +725,7 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.labelPercentComplete);
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label6);
+            this.Controls.Add(this.label9);
             this.Name = "Form1";
             this.Text = "Simple Video Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -799,6 +811,7 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
     }
 }
 
