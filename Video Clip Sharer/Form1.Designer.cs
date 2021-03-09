@@ -88,6 +88,9 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat = new System.Windows.Forms.ComboBox();
             this.textBoxScaleX = new System.Windows.Forms.TextBox();
             this.textBoxScaleY = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -599,11 +602,7 @@ namespace Video_Clip_Sharer
             // 
             this.comboBoxOutputFormat.FormattingEnabled = true;
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
-            "h264",
-            "h265",
-            "h264nvidia",
-            "h265nvidia",
-            "vp9",
+            "Same As Source (usually h264)",
             "gif"});
             this.comboBoxOutputFormat.Location = new System.Drawing.Point(710, 387);
             this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
@@ -614,7 +613,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxScaleX
             // 
-            this.textBoxScaleX.Location = new System.Drawing.Point(148, 505);
+            this.textBoxScaleX.Location = new System.Drawing.Point(91, 502);
             this.textBoxScaleX.Name = "textBoxScaleX";
             this.textBoxScaleX.Size = new System.Drawing.Size(56, 20);
             this.textBoxScaleX.TabIndex = 55;
@@ -622,10 +621,38 @@ namespace Video_Clip_Sharer
             // 
             // textBoxScaleY
             // 
-            this.textBoxScaleY.Location = new System.Drawing.Point(222, 505);
+            this.textBoxScaleY.Location = new System.Drawing.Point(155, 502);
             this.textBoxScaleY.Name = "textBoxScaleY";
+            this.textBoxScaleY.ReadOnly = true;
             this.textBoxScaleY.Size = new System.Drawing.Size(56, 20);
             this.textBoxScaleY.TabIndex = 56;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(146, 504);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 13);
+            this.label6.TabIndex = 57;
+            this.label6.Text = "x";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(102, 487);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 58;
+            this.label7.Text = "Width";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(165, 487);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 59;
+            this.label8.Text = "Height";
             // 
             // Form1
             // 
@@ -633,6 +660,8 @@ namespace Video_Clip_Sharer
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxScaleY);
             this.Controls.Add(this.textBoxScaleX);
             this.Controls.Add(this.comboBoxOutputFormat);
@@ -684,6 +713,7 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.linkLabelVideoPath);
             this.Controls.Add(this.labelPercentComplete);
             this.Controls.Add(this.textBoxLog);
+            this.Controls.Add(this.label6);
             this.Name = "Form1";
             this.Text = "Simple Video Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -766,6 +796,9 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.ComboBox comboBoxOutputFormat;
         private System.Windows.Forms.TextBox textBoxScaleX;
         private System.Windows.Forms.TextBox textBoxScaleY;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
 

@@ -215,8 +215,13 @@ namespace Video_Clip_Sharer
             axVLCPlugin21.Refresh();
             axVLCPlugin21.playlist.playItem(id);
             axVLCPlugin21.volume = 10;
-            uiSettings.exportSettings.scale = axVLCPlugin21.Size;
-            uiSettings.exportSettings.outputScale = axVLCPlugin21.Size;
+
+
+            uiSettings.exportSettings.scale = new Size(uiSettings.exportSettings.videoData.PrimaryVideoStream.Width, uiSettings.exportSettings.videoData.PrimaryVideoStream.Height);
+            uiSettings.exportSettings.outputScale = uiSettings.exportSettings.scale;
+
+            textBoxScaleX.Text = ""; //Set equal to none first so the event will trigger twice. NECESSARY
+            textBoxScaleX.Text = uiSettings.exportSettings.videoData.PrimaryVideoStream.Width.ToString();
 
             return;
 
@@ -309,7 +314,7 @@ namespace Video_Clip_Sharer
         }
 
         //Function very similar to visualizeCrop. But instead of visualizing, we want to set the outputScale to reflect the crop.
-        async public void setScaleFromCrop(AxAXVLC.AxVLCPlugin2 axVLCPlugin)
+        async public void setScaleFromCrop()
         {
 
             if (uiSettings.exportSettings.crop.cropPosition1.X >= 0 && uiSettings.exportSettings.crop.cropPosition2.X == -1)//Crop 1 set but not crop 2 yet. 
@@ -319,12 +324,14 @@ namespace Video_Clip_Sharer
             else if (uiSettings.exportSettings.crop.cropPosition1.X >= 0 && uiSettings.exportSettings.crop.cropPosition2.X > 0)//Crop 2 set, so we have a new scale.
             {
                 //Sets scale of video to the scaled size of the video
-                uiSettings.exportSettings.outputScale = new Size(uiSettings.exportSettings.crop.cropPosition1.X - uiSettings.exportSettings.crop.cropPosition2.X, uiSettings.exportSettings.crop.cropPosition1.Y - uiSettings.exportSettings.crop.cropPosition2.Y); 
-
+                
+                uiSettings.exportSettings.outputScale = new Size(Math.Abs(uiSettings.exportSettings.crop.cropPosition1.X - uiSettings.exportSettings.crop.cropPosition2.X), Math.Abs(uiSettings.exportSettings.crop.cropPosition1.Y - uiSettings.exportSettings.crop.cropPosition2.Y));
+                textBoxScaleX.Text = Math.Abs((uiSettings.exportSettings.crop.cropPosition1.X - uiSettings.exportSettings.crop.cropPosition2.X)).ToString();
             }
             else //Otherwise, neither crop position is set, so that means were trying to reset the scale.
             {
-                uiSettings.exportSettings.outputScale = uiSettings.exportSettings.scale; 
+                uiSettings.exportSettings.outputScale = uiSettings.exportSettings.scale;
+                textBoxScaleX.Text = ""; //Setting it to null will automatically make it populate with the correct values.
             }
             
         }
@@ -333,14 +340,26 @@ namespace Video_Clip_Sharer
         {
             try
             {
-                if (!String.IsNullOrEmpty(textBoxScaleX.Text))
+
+                if (uiSettings.exportSettings.outputScale.Width == 0) return;
+                double width = double.Parse(textBoxScaleX.Text);
+                int height = 0;
+                if (uiSettings.exportSettings.crop.cropPosition2.X != -1) // If crop exists, use the aspect ratio of the crop
                 {
-                    double reverseAspectRatio = (double)uiSettings.exportSettings.outputScale.Height / (double)uiSettings.exportSettings.outputScale.Width;
-                    textBoxScaleY.Text = ""+Math.Floor(reverseAspectRatio * double.Parse(textBoxScaleX.Text));
-                    uiSettings.exportSettings.outputScale = new Size(int.Parse(textBoxScaleX.Text), int.Parse(textBoxScaleY.Text));
+                    height = (int)Math.Floor(width * (double)(uiSettings.exportSettings.crop.cropPosition1.Y - uiSettings.exportSettings.crop.cropPosition2.Y) / (double)(Math.Abs((double)uiSettings.exportSettings.crop.cropPosition1.X - uiSettings.exportSettings.crop.cropPosition2.X)));
 
-
-            }
+                } else //If crop doesnt exist, our aspect ratio should be the same as default.
+                {
+                    height = (int)Math.Floor(width * (double)uiSettings.exportSettings.scale.Height / (double)uiSettings.exportSettings.scale.Width);
+                    
+                }
+                
+                textBoxScaleY.Text = height.ToString();
+                if (width == 0 || height == 0) return;
+                if (uiSettings.exportSettings.outputScale.Width != width)
+                {
+                    uiSettings.exportSettings.outputScale = new Size((int)width, height);
+                }
             } catch (Exception err) {
                 Console.WriteLine(err);
             }
@@ -573,7 +592,11 @@ namespace Video_Clip_Sharer
             {
                 case "C": //set crop point
                     bool truth = await uiSettings.exportSettings.crop.cropHandler(uiSettings, axVLCPlugin21, this.PointToClient(Cursor.Position));
-                    if (truth == true) visualizeCrop(axVLCPlugin21);
+                    if (truth == true)
+                    {
+                        visualizeCrop(axVLCPlugin21);
+                        setScaleFromCrop();
+                    }
                     break;
                 case "OemOpenBrackets": //[ set start point
                     setStart(axVLCPlugin21.input.time);
@@ -612,6 +635,7 @@ namespace Video_Clip_Sharer
         private void buttonClearCrop_Click(object sender, EventArgs e)
         {
             uiSettings.exportSettings.clearCrop();
+            setScaleFromCrop(); //Fixes the scaling if we clear the crop
             visualizeCrop(axVLCPlugin21);
         }
 
@@ -672,28 +696,27 @@ namespace Video_Clip_Sharer
                 }
             }
         }
-        //In engine: F:\Desktop\CLIPPED-2/18/2021 3:14:41 PM-yeah aight.mp4
 
         async private Task setExport(ExportSettings exportSettings)
         {
             Console.WriteLine("\nStarting export...");
-            try { 
-            var inputFile = new MediaFile(exportSettings.videoPath);
-            var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
-            ffmpeg.Progress += OnProgress;
-            ffmpeg.Data += OnData;
-            ffmpeg.Error += OnError;
-            ffmpeg.Complete += OnComplete;
-            cancelSource = new CancellationTokenSource();
-            string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
-            linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
-            await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+            try {
+                progressBarRender.Value = 0;
+                var inputFile = new MediaFile(exportSettings.videoPath);
+                var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
+                ffmpeg.Progress += OnProgress;
+                ffmpeg.Data += OnData;
+                ffmpeg.Error += OnError;
+                ffmpeg.Complete += OnComplete;
+                cancelSource = new CancellationTokenSource();
+                string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
+                linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
+                await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
             } catch(Exception err)
             {
                 Console.WriteLine(err);
                 MessageBox.Show("Error while booting ffmpeg.");
             }
-            //await ffmpeg.ExecuteAsync(@"-i F:\Desktop\yeahaight.mp4 -vf scale=1920:1080,setsar=1:1 F:\Desktop\output.mp4");
             return;
 
 
@@ -790,6 +813,7 @@ namespace Video_Clip_Sharer
             {
                 try
                 {
+                    
                     setExport(uiSettings.exportSettings);
                 }
                 catch (Exception err)
@@ -935,6 +959,11 @@ namespace Video_Clip_Sharer
 
         private void textBoxScaleX_TextChanged(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(textBoxScaleX.Text))
+            {
+                textBoxScaleX.Text = uiSettings.exportSettings.scale.Width.ToString();
+                return;
+            }
             try
             {
 

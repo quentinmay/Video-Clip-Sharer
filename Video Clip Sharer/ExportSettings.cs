@@ -110,12 +110,17 @@ namespace Video_Clip_Sharer
         async public Task<string> generateGifVfTag()
         {
             string vfString = "";
+
+            //set width to be even because FFMPEG cant handle uneven widths or height.
+            int width = this.outputScale.Width;
+            if (this.outputScale.Width % 2 == 1) width += 1;
+
             if (crop.cropPosition2.X != -1)
-            {
-                vfString = "-vf crop=" + crop.cropSize.Width + ":" + crop.cropSize.Height + ":" + crop.cropPosition1.X + ":" + crop.cropPosition2.Y + ",fps=" + this.fps + ",scale=" + this.outputScale.Width + ":-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
+            { //Generate VF with crop
+                vfString = "-vf crop=" + crop.cropSize.Width + ":" + crop.cropSize.Height + ":" + crop.cropPosition1.X + ":" + crop.cropPosition2.Y + ",fps=" + this.fps + ",scale=" + width + ":-2,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
             } else
-            {
-                vfString = "-vf fps=" + this.fps + ",scale=" + this.outputScale.Width + ":-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
+            { //Generate VF without crop.
+                vfString = "-vf fps=" + this.fps + ",scale=" + width + ":-2,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse";
             }
             return vfString;
 
@@ -183,8 +188,19 @@ namespace Video_Clip_Sharer
         async public Task<string> generateVFTag()
         {
             string vfString = "";
-            if (crop.cropPosition2.X == -1) return "";
-            vfString = "-vf crop=" + crop.cropSize.Width + ":" + crop.cropSize.Height + ":" + crop.cropPosition1.X + ":" + crop.cropPosition2.Y;
+
+            //set width to be even because FFMPEG cant handle uneven widths or height.
+            int width = this.outputScale.Width;
+            if (this.outputScale.Width % 2 == 1) width += 1;
+
+            if (crop.cropPosition2.X == -1)
+            { //Generate VF without crop.
+                vfString = "-vf scale=" + width + ":-2";
+            }
+            else
+            { //Generate VF with crop
+                vfString = "-vf crop=" + crop.cropSize.Width + ":" + crop.cropSize.Height + ":" + crop.cropPosition1.X + ":" + crop.cropPosition2.Y + ",scale=" + width + ":-2";
+            }
             return vfString;
 
         }
