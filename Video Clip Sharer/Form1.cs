@@ -42,12 +42,16 @@ namespace Video_Clip_Sharer
             pictureBoxLeftCrop.BringToFront();
             pictureBoxRightCrop.BringToFront();
             pictureBoxTopCrop.BringToFront();
-            checkForFFmpeg();
+            onBoot();
 
+
+        }
+
+        async private void onBoot()
+        {
             //Should check for ffmpeg/ffprobe binaries before allowing anything to be loaded.
-            loadTempJson();
-
-
+            await loadTempJson();
+            await checkForFFmpeg();
 
         }
 
@@ -137,6 +141,7 @@ namespace Video_Clip_Sharer
                 }
                 catch (Exception error)
                 {
+                    textBoxLog.Text = error.ToString();
                     Console.WriteLine(error.ToString());
                     textBoxFFmpegBinaries.BackColor = Color.Red;
                     MessageBox.Show("Wasn't able to find or produce ffmpeg/ffprobe binaries in temp path.");
