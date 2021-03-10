@@ -125,6 +125,7 @@ namespace Video_Clip_Sharer
             this.buttonTestPlayVideo.TabIndex = 2;
             this.buttonTestPlayVideo.Text = "Generate FFMPEG command";
             this.buttonTestPlayVideo.UseVisualStyleBackColor = true;
+            this.buttonTestPlayVideo.Visible = false;
             this.buttonTestPlayVideo.Click += new System.EventHandler(this.buttonTestPlayVideo_Click);
             // 
             // panel1
@@ -162,6 +163,7 @@ namespace Video_Clip_Sharer
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.Size = new System.Drawing.Size(162, 131);
             this.textBoxLog.TabIndex = 8;
+            this.textBoxLog.Visible = false;
             // 
             // checkBoxStayInBoundary
             // 
@@ -726,6 +728,7 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label9);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Simple Video Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

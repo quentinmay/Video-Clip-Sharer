@@ -50,7 +50,7 @@ namespace Video_Clip_Sharer
         async private void onBoot()
         {
             //Should check for ffmpeg/ffprobe binaries before allowing anything to be loaded.
-            await loadTempJson();
+            populateVideoList(""); //await loadTempJson();
             await checkForFFmpeg();
 
         }
@@ -108,7 +108,8 @@ namespace Video_Clip_Sharer
             catch (Exception err)
             {
                 try
-                {
+                { 
+                    
                     //string tempSavePath = Path.Combine(Path.GetTempPath(), "SimpleVideoEditor\\ffmpegPath.json");
                     string ffmpegExe = Path.Combine(Path.GetTempPath(), "SimpleVideoEditor\\ffmpeg.exe");
                     string ffprobeExe = Path.Combine(Path.GetTempPath(), "SimpleVideoEditor\\ffprobe.exe");
@@ -131,6 +132,7 @@ namespace Video_Clip_Sharer
                             fsDst.Write(bytes, 0, bytes.Length);
                         }
                     }
+                    
 
                     this.ffmpegDirectory = Path.GetDirectoryName(ffmpegExe);
                     textBoxFFmpegBinaries.Text = Path.GetDirectoryName(ffmpegExe);
@@ -138,6 +140,7 @@ namespace Video_Clip_Sharer
                     string tempFilePath = Path.Combine(Path.GetTempPath(), "SimpleVideoEditor\\ffmpegPath.json");
                     string jsonUISettings = JsonConvert.SerializeObject(Path.GetTempPath(), Formatting.Indented);
                     File.WriteAllText(tempFilePath, jsonUISettings);
+                    
                 }
                 catch (Exception error)
                 {
@@ -192,7 +195,7 @@ namespace Video_Clip_Sharer
             }
             catch (Exception err)
             {
-                MessageBox.Show("Failed to load last used directory.");
+                //MessageBox.Show("Failed to load last used directory.");
                 populateVideoList("");
                 return;
             }
@@ -710,6 +713,7 @@ namespace Video_Clip_Sharer
                 progressBarRender.Value = 0;
                 var inputFile = new MediaFile(exportSettings.videoPath);
                 var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
+                textBoxLog.Text = this.ffmpegDirectory;
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Data += OnData;
                 ffmpeg.Error += OnError;
@@ -798,6 +802,7 @@ namespace Video_Clip_Sharer
 
         private void OnError(object sender, ConversionErrorEventArgs e)
         {
+            textBoxLog.Text = e.Exception.ToString();
             MessageBox.Show("Error when booting FFmpeg");
 
             Console.WriteLine(e.Exception);

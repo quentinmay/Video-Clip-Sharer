@@ -293,7 +293,11 @@
     <None Include="bin\Debug\FFMpegCore.dll" />
     <None Include="bin\Debug\Interop.AXVLC.dll" />
     <None Include="bin\Debug\Newtonsoft.Json.dll" />
+    <None Include="resources\ffmpeg version 2021-01-12-git-ca21cb1e36\ffmpeg.exe" />
+    <None Include="resources\ffmpeg version 2021-01-12-git-ca21cb1e36\ffprobe.exe" />
+    <None Include="resources\ffmpeg version 4.3.2-2021-02-27-essentials_build-www.gyan.dev\ffmpeg.exe" />
     <Content Include="resources\ffmpeg.exe" />
+    <None Include="resources\ffprobe version N-60329-ge708424\ffprobe.exe" />
     <Content Include="resources\ffprobe.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

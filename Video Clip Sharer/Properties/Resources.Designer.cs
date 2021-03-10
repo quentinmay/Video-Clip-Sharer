@@ -63,16 +63,6 @@ namespace Video_Clip_Sharer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] AxInterop_AXVLC {
-            get {
-                object obj = ResourceManager.GetObject("AxInterop_AXVLC", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] ffmpeg {
             get {
                 object obj = ResourceManager.GetObject("ffmpeg", resourceCulture);
@@ -86,16 +76,6 @@ namespace Video_Clip_Sharer.Properties {
         internal static byte[] ffprobe {
             get {
                 object obj = ResourceManager.GetObject("ffprobe", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Interop_AXVLC {
-            get {
-                object obj = ResourceManager.GetObject("Interop_AXVLC", resourceCulture);
                 return ((byte[])(obj));
             }
         }
