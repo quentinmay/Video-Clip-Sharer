@@ -4,6 +4,8 @@ This is a basic video editor developed using C# and heavily dependent on FFmpeg 
 
 ![output](https://user-images.githubusercontent.com/73214439/108961692-911a7180-762c-11eb-8781-235760ea8fc7.gif)
 
+# 🚀Install
+Installation program can be in [releases](https://github.com/quentinmay/Video-Clip-Sharer/releases).
 
 ## ⚠Requirements
 1. [VLC Media Player](https://www.videolan.org/)
