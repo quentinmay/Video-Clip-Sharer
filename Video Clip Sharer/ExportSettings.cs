@@ -101,7 +101,8 @@ namespace Video_Clip_Sharer
 
                     return String.Join(" ", ffmpegCommandList);
                     break;
-                default: //any format other than gif. Need to add more 
+                case "libvpx-vp9": //Can just goto default since it works similar to h264
+                default: //any format not accounted for. Need to add more 
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
 
                     ffmpegCommandList.Add(await this.generateVFTag());
@@ -132,6 +133,9 @@ namespace Video_Clip_Sharer
             switch (this.outputFormat)
             {
                 case "h264_nvenc":
+                    return "-c:v " + outputFormat;
+                    break;
+                case "libvpx-vp9":
                     return "-c:v " + outputFormat;
                     break;
                 default:
@@ -173,6 +177,9 @@ namespace Video_Clip_Sharer
             {
                 case "gif":
                     extension = ".gif";
+                    break;
+                case "libvpx-vp9":
+                    extension = ".webm";
                     break;
                 default:
                     extension = Path.GetExtension(videoPath);
@@ -219,6 +226,9 @@ namespace Video_Clip_Sharer
             {
                 case "h264_nvenc":
                     return "-qmin " + quality;
+                    break;
+                case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
+                    return "-crf " + quality + " -b:v 0";
                     break;
                 default:
                     //copy implies that it copys the video encoding format so that we dont reencode into something different.

@@ -610,6 +610,7 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
             "Same As Source (usually h264)",
             "h264_nvenc",
+            "libvpx-vp9",
             "gif"});
             this.comboBoxOutputFormat.Location = new System.Drawing.Point(710, 387);
             this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
