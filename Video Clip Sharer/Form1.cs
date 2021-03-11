@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -83,6 +84,9 @@ namespace Video_Clip_Sharer
                 }
             }
         }
+
+
+
 
         //First check to see if the Temp path has the ffmpegPath saved as json. If it doesnt or any errors occur, automatically unpack the 2 to the temp path then update the json and data section.
         async public Task checkForFFmpeg()
@@ -958,6 +962,7 @@ namespace Video_Clip_Sharer
 
         }
 
+
         private void textBoxSearchListView_TextChanged(object sender, EventArgs e)
         {
 
@@ -988,6 +993,12 @@ namespace Video_Clip_Sharer
             }
 
             
+        }
+
+        private void buttonDev_Click(object sender, EventArgs e)
+        {
+            textBoxLog.Visible = !textBoxLog.Visible;
+            buttonTestPlayVideo.Visible = !buttonTestPlayVideo.Visible;
         }
     }
 

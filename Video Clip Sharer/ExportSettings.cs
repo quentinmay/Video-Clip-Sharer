@@ -80,9 +80,27 @@ namespace Video_Clip_Sharer
 
                     ffmpegCommandList.Add(await this.generateOutputTag());
 
-                    string ffmpegCommandGif = String.Join(" ", ffmpegCommandList);
-                    return ffmpegCommandGif;
-                    break; 
+                    return String.Join(" ", ffmpegCommandList); ;
+                    break;
+                case "h264_nvenc":
+                    ffmpegCommandList.Add(await this.generateAudioTracksTag());
+
+                    ffmpegCommandList.Add(await this.generateVFTag());
+
+                    ffmpegCommandList.Add(await this.generateQualityTag());
+
+                    ffmpegCommandList.Add(await this.generateStartTag());
+
+                    ffmpegCommandList.Add(await this.generateEndTag());
+
+                    ffmpegCommandList.Add(await this.generateFPSTag());
+
+                    ffmpegCommandList.Add(await this.generateEncodingTag());
+
+                    ffmpegCommandList.Add(await this.generateOutputTag());
+
+                    return String.Join(" ", ffmpegCommandList);
+                    break;
                 default: //any format other than gif. Need to add more 
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
 
@@ -96,14 +114,33 @@ namespace Video_Clip_Sharer
 
                     ffmpegCommandList.Add(await this.generateFPSTag());
 
+                    ffmpegCommandList.Add(await this.generateEncodingTag());
+
                     ffmpegCommandList.Add(await this.generateOutputTag());
 
                     //Removes empty string that would just add extra spaces. Then formats the list as a runnable string command
                     ffmpegCommandList.RemoveAll(s => string.IsNullOrEmpty(s));
-                    string ffmpegCommand = String.Join(" ", ffmpegCommandList);
-                    return ffmpegCommand;
+
+                    return String.Join(" ", ffmpegCommandList);
                     break;
             }
+
+        }
+        //Generates the encoding tag that lists the video encoding format we want to output to.
+        async public Task<string> generateEncodingTag()
+        {
+            switch (this.outputFormat)
+            {
+                case "h264_nvenc":
+                    return "-c:v " + outputFormat;
+                    break;
+                default:
+                    //return blank because if its blank, we dont want to change the encoding.
+                    return "";
+                    break;
+            }
+            //copy encoding hardcoded in for now. Room still is left for encoding into different formats like h265, nvenc etc, but they also0 have different quality parameters.
+
 
         }
 
@@ -178,10 +215,18 @@ namespace Video_Clip_Sharer
         //https://trac.ffmpeg.org/wiki/Encode/H.264 reference for quality parameter for h264 encoding specifically
         async public Task<string> generateQualityTag()
         {
+            switch(this.outputFormat)
+            {
+                case "h264_nvenc":
+                    return "-qmin " + quality;
+                    break;
+                default:
+                    //copy implies that it copys the video encoding format so that we dont reencode into something different.
+                    return "-crf " + quality;
+                    break;
+            }
             //copy encoding hardcoded in for now. Room still is left for encoding into different formats like h265, nvenc etc, but they also0 have different quality parameters.
-            var qualityString = "";
-            qualityString = "-crf " + quality; //copy implies that it copys the video encoding format so that we dont reencode into something different.
-            return qualityString;
+
 
         }
 

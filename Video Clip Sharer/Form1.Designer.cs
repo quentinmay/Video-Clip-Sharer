@@ -92,6 +92,7 @@ namespace Video_Clip_Sharer
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonDev = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -548,6 +549,7 @@ namespace Video_Clip_Sharer
             this.textBoxVideoListPath.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBoxVideoListPath.Location = new System.Drawing.Point(710, 95);
             this.textBoxVideoListPath.Name = "textBoxVideoListPath";
+            this.textBoxVideoListPath.ReadOnly = true;
             this.textBoxVideoListPath.Size = new System.Drawing.Size(316, 20);
             this.textBoxVideoListPath.TabIndex = 46;
             this.textBoxVideoListPath.Click += new System.EventHandler(this.textBoxVideoListPath_Click);
@@ -555,7 +557,7 @@ namespace Video_Clip_Sharer
             // linkLabelOutputPath
             // 
             this.linkLabelOutputPath.AutoSize = true;
-            this.linkLabelOutputPath.Location = new System.Drawing.Point(707, 441);
+            this.linkLabelOutputPath.Location = new System.Drawing.Point(708, 441);
             this.linkLabelOutputPath.Name = "linkLabelOutputPath";
             this.linkLabelOutputPath.Size = new System.Drawing.Size(103, 13);
             this.linkLabelOutputPath.TabIndex = 47;
@@ -580,6 +582,7 @@ namespace Video_Clip_Sharer
             this.textBoxFFmpegBinaries.ForeColor = System.Drawing.Color.Transparent;
             this.textBoxFFmpegBinaries.Location = new System.Drawing.Point(445, 6);
             this.textBoxFFmpegBinaries.Name = "textBoxFFmpegBinaries";
+            this.textBoxFFmpegBinaries.ReadOnly = true;
             this.textBoxFFmpegBinaries.Size = new System.Drawing.Size(207, 20);
             this.textBoxFFmpegBinaries.TabIndex = 49;
             this.textBoxFFmpegBinaries.Click += new System.EventHandler(this.textBoxFFmpegBinaries_Click);
@@ -606,6 +609,7 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat.FormattingEnabled = true;
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
             "Same As Source (usually h264)",
+            "h264_nvenc",
             "gif"});
             this.comboBoxOutputFormat.Location = new System.Drawing.Point(710, 387);
             this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
@@ -667,12 +671,22 @@ namespace Video_Clip_Sharer
             this.label9.TabIndex = 60;
             this.label9.Text = "Hotkeys:\r\nSet Start \"[\"\r\nSet End \"]\"\r\nSet Crop Point \"C\"\r\n";
             // 
+            // buttonDev
+            // 
+            this.buttonDev.Location = new System.Drawing.Point(654, 513);
+            this.buttonDev.Name = "buttonDev";
+            this.buttonDev.Size = new System.Drawing.Size(24, 23);
+            this.buttonDev.TabIndex = 61;
+            this.buttonDev.UseVisualStyleBackColor = true;
+            this.buttonDev.Click += new System.EventHandler(this.buttonDev_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.Controls.Add(this.buttonDev);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxScaleY);
@@ -815,6 +829,7 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonDev;
     }
 }
 
