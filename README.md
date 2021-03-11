@@ -11,14 +11,14 @@ Installation program can be in [releases](https://github.com/quentinmay/Video-Cl
 1. [VLC Media Player](https://www.videolan.org/)
 2. [FFmpeg](https://ffmpeg.org/)
 
-All testing was done specifically with VLC 3.0.12 Vetinari and FFmpeg/FFProbe version N-60329-ge708424. Other versions are not explicitly supported and may not work.
+All testing was done specifically with VLC 3.0.12 Vetinari and FFmpeg version 4.3.2-2021-02-27-essentials_build-www.gyan.dev and FFprobe version N-60329-ge708424. Other versions are not explicitly supported and may not work.
 
 
 ## VLC
 axVLCPlugin is required in order to run the editor. This comes installed by default with VLC 3.0.12 Vetinari.
 
 ## FFmpeg
-Tested specifically with FFmpeg and FFProbe binaries (ffmpeg/ffprobe version N-60329-ge708424). Binaries by default will be placed in users temp folder.
+Tested specifically with FFmpeg and FFProbe binaries (FFmpeg version 4.3.2-2021-02-27-essentials_build-www.gyan.dev and FFprobe version N-60329-ge708424). Binaries by default will be placed in users temp folder.
 
 
 ## License
