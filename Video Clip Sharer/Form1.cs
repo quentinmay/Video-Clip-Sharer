@@ -26,7 +26,7 @@ namespace Video_Clip_Sharer
     {
 
         private UISettings uiSettings = new UISettings();
-        private string ffmpegDirectory;
+        private string ffmpegDirectory = Directory.GetCurrentDirectory();
         private CancellationTokenSource cancelSource;
 
         public Form1()
@@ -52,10 +52,10 @@ namespace Video_Clip_Sharer
         {
             //Should check for ffmpeg/ffprobe binaries before allowing anything to be loaded.
             populateVideoList(""); //await loadTempJson();
-            await checkForFFmpeg();
+            //await checkForFFmpeg();
 
         }
-
+        /*
         //After someone clicks the textBoxFfmpegBinaries, they get asked to give a directory. Once a direction is given. it checks if the files are there or not. If there is, set data section to that path.
         private void textBoxFFmpegBinaries_Click(object sender, EventArgs e)
         {
@@ -84,10 +84,10 @@ namespace Video_Clip_Sharer
                 }
             }
         }
+        */
 
 
-
-
+        /*
         //First check to see if the Temp path has the ffmpegPath saved as json. If it doesnt or any errors occur, automatically unpack the 2 to the temp path then update the json and data section.
         async public Task checkForFFmpeg()
         {
@@ -156,6 +156,7 @@ namespace Video_Clip_Sharer
 
             }
         }
+        */
         async public Task loadTempJson()
         {
             /*
@@ -716,8 +717,9 @@ namespace Video_Clip_Sharer
             try {
                 progressBarRender.Value = 0;
                 var inputFile = new MediaFile(exportSettings.videoPath);
+                
                 var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
-                textBoxLog.Text = this.ffmpegDirectory;
+                //textBoxLog.Text = this.ffmpegDirectory;
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Data += OnData;
                 ffmpeg.Error += OnError;
@@ -889,10 +891,10 @@ namespace Video_Clip_Sharer
             {
                 labelTimestamp.Text = TimeSpan.FromMilliseconds(axVLCPlugin21.input.time).ToString(@"mm\:ss");
             }
-            if (string.IsNullOrEmpty(ffmpegDirectory))
+            /*if (string.IsNullOrEmpty(ffmpegDirectory))
             {
                 textBoxFFmpegBinaries.BackColor = Color.Red;
-            }
+            }*/
         }
 
 

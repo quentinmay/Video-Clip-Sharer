@@ -585,7 +585,7 @@ namespace Video_Clip_Sharer
             this.textBoxFFmpegBinaries.ReadOnly = true;
             this.textBoxFFmpegBinaries.Size = new System.Drawing.Size(207, 20);
             this.textBoxFFmpegBinaries.TabIndex = 49;
-            this.textBoxFFmpegBinaries.Click += new System.EventHandler(this.textBoxFFmpegBinaries_Click);
+            this.textBoxFFmpegBinaries.Visible = false;
             // 
             // label5
             // 
@@ -595,6 +595,7 @@ namespace Video_Clip_Sharer
             this.label5.Size = new System.Drawing.Size(113, 13);
             this.label5.TabIndex = 50;
             this.label5.Text = "FFmpeg Binaries Path:";
+            this.label5.Visible = false;
             // 
             // textBoxSearchListView
             // 
@@ -602,6 +603,7 @@ namespace Video_Clip_Sharer
             this.textBoxSearchListView.Name = "textBoxSearchListView";
             this.textBoxSearchListView.Size = new System.Drawing.Size(316, 20);
             this.textBoxSearchListView.TabIndex = 51;
+            this.textBoxSearchListView.Visible = false;
             this.textBoxSearchListView.TextChanged += new System.EventHandler(this.textBoxSearchListView_TextChanged);
             // 
             // comboBoxOutputFormat
