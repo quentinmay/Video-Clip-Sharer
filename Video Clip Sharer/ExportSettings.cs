@@ -265,8 +265,13 @@ namespace Video_Clip_Sharer
             int keptAudioTracksCount = 0;
             foreach (var audioTrack in audioTracks) { if (audioTrack.keep == true) keptAudioTracksCount++; }
             string filterComplex = "";
-            if (keptAudioTracksCount > 0) filterComplex = "-filter_complex ";
-
+            if (keptAudioTracksCount > 0)
+            {
+                filterComplex = "-filter_complex ";
+            } else //Instead where its <=0, delete all audio tracks.
+            {
+                filterComplex = "-an";
+            }
 
             // WHAT WE REALLY WANT
             //-filter_complex "[0:a:1]volume=.1" For a single track
@@ -275,12 +280,18 @@ namespace Video_Clip_Sharer
             var index = 97; //ASCII for a. Need since we need to assign alphabetical characters to audio tracks in ffmpeg
             string charsPre = "";
 
-            foreach (var audioTrack in audioTracks)
+            //In the case of MOV, its weird. FFprobe counts the audio track index starting from 0 instead of 1. This adjusts for that.
+            var indexSubtractor = 1;
+            if (audioTracks.Find(track => track.audioStream.Index == 0) != null) indexSubtractor = 0; 
+
+                foreach (var audioTrack in audioTracks)
             {
+
                 if (audioTrack.keep == true)
                 {
+
                     charsPre += "[" + (char)index + "]";
-                    filterComplex += ("[0:a:" + (((int)audioTrack.audioStream.Index) - 1) + "]volume=" + ((double)audioTrack.volume / 100));
+                    filterComplex += ("[0:a:" + (((int)audioTrack.audioStream.Index) - indexSubtractor) + "]volume=" + ((double)audioTrack.volume / 100));
                     if (keptAudioTracksCount > 1) filterComplex += "[" + (char)index + "];";//if were saving multiple audiotracks, we need to add this onto the end for the amix later
 
                     index++;

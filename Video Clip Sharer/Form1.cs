@@ -752,34 +752,39 @@ namespace Video_Clip_Sharer
         private void onProgressMainThread(ConversionProgressEventArgs e)
         {
             //double estimatedTotalFrames = <-- gonna require ton of a code to check the framerate and calculate the total seconds then multiply. 
-
-            int progress = (int)Math.Floor(((double)e.ProcessedDuration.TotalMilliseconds / (double)(uiSettings.exportSettings.getDuration())) * 100);
-            double secondsRemaining = ((double)uiSettings.exportSettings.getDuration() / 1000) - (double)e.ProcessedDuration.TotalSeconds;
-            double framesRemaining = uiSettings.exportSettings.fps * secondsRemaining;
-            textBoxLog.Text += "\n" + framesRemaining;
-            double timeTillComplete = (double)(framesRemaining / (double)e.Fps);
-            if (timeTillComplete < 100000)
+            try
             {
-                labelRenderTimeToComplete.Text = "Time To Complete: " + TimeSpan.FromSeconds(timeTillComplete).ToString(@"hh\h\:mm\m\:ss\s");
-            }
-            if (progress >= 99)
-            { //Jank cuz technically never equals 100%. onProgress updates even after onComplete gets run for some reason.
-                progressBarRender.Value = 100;
-            }
-            else
-            {
-                progressBarRender.Value = progress;
-            }
+                int progress = (int)Math.Floor(((double)e.ProcessedDuration.TotalMilliseconds / (double)(uiSettings.exportSettings.getDuration())) * 100);
+                double secondsRemaining = ((double)uiSettings.exportSettings.getDuration() / 1000) - (double)e.ProcessedDuration.TotalSeconds;
+                double framesRemaining = uiSettings.exportSettings.fps * secondsRemaining;
+                textBoxLog.Text += "\n" + framesRemaining;
+                double timeTillComplete = (double)(framesRemaining / (double)e.Fps);
+                if (timeTillComplete < 100000)
+                {
+                    labelRenderTimeToComplete.Text = "Time To Complete: " + TimeSpan.FromSeconds(timeTillComplete).ToString(@"hh\h\:mm\m\:ss\s");
+                }
+                if (progress >= 99)
+                { //Jank cuz technically never equals 100%. onProgress updates even after onComplete gets run for some reason.
+                    progressBarRender.Value = 100;
+                }
+                else
+                {
+                    progressBarRender.Value = progress;
+                }
 
-            labelPercentComplete.Text = progressBarRender.Value.ToString() + "%";
-            labelRenderTimeElapsed.Text = "Time Elapsed: " + TimeSpan.FromSeconds(e.ProcessedDuration.TotalSeconds).ToString(@"hh\h\:mm\m\:ss\s");
-            labelFileSize.Text = "File Size: " + ((double)e.SizeKb / (double)1000).ToString(".0") + "MBs";
-            Console.WriteLine("Bitrate: {0}", e.Bitrate);
-            Console.WriteLine("Fps: {0}", e.Fps);
-            Console.WriteLine("Frame: {0}", e.Frame);
-            Console.WriteLine("ProcessedDuration: {0}", e.ProcessedDuration);
-            Console.WriteLine("Size: {0} kb", e.SizeKb);
-            Console.WriteLine("TotalDuration: {0}\n", e.TotalDuration); //<---Doesnt work
+                labelPercentComplete.Text = progressBarRender.Value.ToString() + "%";
+                labelRenderTimeElapsed.Text = "Time Elapsed: " + TimeSpan.FromSeconds(e.ProcessedDuration.TotalSeconds).ToString(@"hh\h\:mm\m\:ss\s");
+                labelFileSize.Text = "File Size: " + ((double)e.SizeKb / (double)1000).ToString(".0") + "MBs";
+                Console.WriteLine("Bitrate: {0}", e.Bitrate);
+                Console.WriteLine("Fps: {0}", e.Fps);
+                Console.WriteLine("Frame: {0}", e.Frame);
+                Console.WriteLine("ProcessedDuration: {0}", e.ProcessedDuration);
+                Console.WriteLine("Size: {0} kb", e.SizeKb);
+                Console.WriteLine("TotalDuration: {0}\n", e.TotalDuration); //<---Doesnt work
+            } catch (Exception err)
+            {
+                Console.Write(err);
+            }
         }
         private void OnData(object sender, ConversionDataEventArgs e)
         {
