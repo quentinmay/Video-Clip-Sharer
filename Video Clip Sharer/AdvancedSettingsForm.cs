@@ -13,14 +13,14 @@ namespace Video_Clip_Sharer
     public partial class AdvancedSettingsForm : Form
     {
 
-        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime)
+        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
         {
             InitializeComponent();
 
-            populateVideoData(videoData, startTime, endTime);
+            populateVideoData(videoData, startTime, endTime, bitrate);
 
         }
-        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime)
+        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
         {
             try
             {
@@ -32,7 +32,11 @@ namespace Video_Clip_Sharer
 
 
                 labelAverageBitrate.Text = "Video Average Bitrate: " + (int)(videoData.PrimaryVideoStream.BitRate/1000) + " kbps";
-                
+
+                textBoxMinBitrate.Text = bitrate.minBitrate.ToString();
+                textBoxAvgBitrate.Text = bitrate.avgBitrate.ToString();
+                textBoxMaxBitrate.Text = bitrate.maxBitrate.ToString();
+
             }
             catch (Exception err)
             {
@@ -177,7 +181,21 @@ namespace Video_Clip_Sharer
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void AdvancedSettingsForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxMinBitrate_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxAvgBitrate_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBoxMaxBitrate_TextChanged(object sender, EventArgs e)
         {
 
         }

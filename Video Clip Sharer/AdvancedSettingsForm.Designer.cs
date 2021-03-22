@@ -29,24 +29,24 @@ namespace Video_Clip_Sharer
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxMaxBitrate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxAvgBitrate = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxMinBitrate = new System.Windows.Forms.TextBox();
             this.labelOutputFileSize = new System.Windows.Forms.Label();
             this.labelVideoLength = new System.Windows.Forms.Label();
             this.labelAverageBitrate = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxMaxBitrate
             // 
-            this.textBox1.Location = new System.Drawing.Point(180, 130);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxMaxBitrate.Location = new System.Drawing.Point(180, 130);
+            this.textBoxMaxBitrate.Name = "textBoxMaxBitrate";
+            this.textBoxMaxBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMaxBitrate.TabIndex = 0;
+            this.textBoxMaxBitrate.TextChanged += new System.EventHandler(this.textBoxMaxBitrate_TextChanged);
             // 
             // label1
             // 
@@ -67,12 +67,13 @@ namespace Video_Clip_Sharer
             this.label2.TabIndex = 3;
             this.label2.Text = "Average Bitrate kb/s";
             // 
-            // textBox2
+            // textBoxAvgBitrate
             // 
-            this.textBox2.Location = new System.Drawing.Point(180, 104);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 2;
+            this.textBoxAvgBitrate.Location = new System.Drawing.Point(180, 104);
+            this.textBoxAvgBitrate.Name = "textBoxAvgBitrate";
+            this.textBoxAvgBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAvgBitrate.TabIndex = 2;
+            this.textBoxAvgBitrate.TextChanged += new System.EventHandler(this.textBoxAvgBitrate_TextChanged);
             // 
             // label4
             // 
@@ -83,12 +84,13 @@ namespace Video_Clip_Sharer
             this.label4.TabIndex = 5;
             this.label4.Text = "Min Bitrate kb/s";
             // 
-            // textBox4
+            // textBoxMinBitrate
             // 
-            this.textBox4.Location = new System.Drawing.Point(180, 78);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 4;
+            this.textBoxMinBitrate.Location = new System.Drawing.Point(180, 78);
+            this.textBoxMinBitrate.Name = "textBoxMinBitrate";
+            this.textBoxMinBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMinBitrate.TabIndex = 4;
+            this.textBoxMinBitrate.TextChanged += new System.EventHandler(this.textBoxMinBitrate_TextChanged);
             // 
             // labelOutputFileSize
             // 
@@ -126,13 +128,15 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.labelVideoLength);
             this.Controls.Add(this.labelOutputFileSize);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBoxMinBitrate);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxAvgBitrate);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxMaxBitrate);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AdvancedSettingsForm";
             this.Text = "AdvancedSettingsForm";
+            this.Load += new System.EventHandler(this.AdvancedSettingsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,12 +144,12 @@ namespace Video_Clip_Sharer
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxMaxBitrate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxAvgBitrate;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxMinBitrate;
         private System.Windows.Forms.Label labelOutputFileSize;
         private System.Windows.Forms.Label labelVideoLength;
         private System.Windows.Forms.Label labelAverageBitrate;

@@ -1012,7 +1012,7 @@ namespace Video_Clip_Sharer
         {
             if (this.uiSettings.exportSettings.videoPath != null)
             {
-                var advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime);
+                var advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate);
                 advancedSettings.Show(this);
             }
 
@@ -1025,8 +1025,7 @@ namespace Video_Clip_Sharer
         private int ColumnNumber;
         private SortOrder SortOrder;
 
-        public ListViewComparer(int column_number,
-            SortOrder sort_order)
+        public ListViewComparer(int column_number, SortOrder sort_order)
         {
             ColumnNumber = column_number;
             SortOrder = sort_order;

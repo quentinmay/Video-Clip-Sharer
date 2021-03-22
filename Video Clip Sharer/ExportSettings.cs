@@ -25,6 +25,7 @@ namespace Video_Clip_Sharer
         public string outputFormat { get; set; }
         public Size scale { get; set; }
         public Size outputScale { get; set; }
+        public bitrate bitrate { get; set; }
 
 
         public ExportSettings()
@@ -316,4 +317,16 @@ namespace Video_Clip_Sharer
         }
 
     }
+    public class bitrate {
+        public int minBitrate { get; set; }
+        public int avgBitrate { get; set; }
+        public int maxBitrate { get; set; }
+        public bitrate(int minBitrate, int avgBitrate, int maxBitrate)
+        {
+            this.minBitrate = minBitrate;
+            this.avgBitrate = avgBitrate;
+            this.maxBitrate = maxBitrate;
+        }
+    }
+
 }
