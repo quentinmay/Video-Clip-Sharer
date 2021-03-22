@@ -1007,6 +1007,16 @@ namespace Video_Clip_Sharer
             textBoxLog.Visible = !textBoxLog.Visible;
             buttonTestPlayVideo.Visible = !buttonTestPlayVideo.Visible;
         }
+
+        private void buttonAdvancedSettings_Click(object sender, EventArgs e)
+        {
+            if (this.uiSettings.exportSettings.videoPath != null)
+            {
+                var advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime);
+                advancedSettings.Show(this);
+            }
+
+        }
     }
 
     //Listview comparer class gotten from Microsoft website. Need to update and make my own.

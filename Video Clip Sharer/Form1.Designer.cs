@@ -93,6 +93,7 @@ namespace Video_Clip_Sharer
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.buttonDev = new System.Windows.Forms.Button();
+            this.buttonAdvancedSettings = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -683,12 +684,23 @@ namespace Video_Clip_Sharer
             this.buttonDev.UseVisualStyleBackColor = true;
             this.buttonDev.Click += new System.EventHandler(this.buttonDev_Click);
             // 
+            // buttonAdvancedSettings
+            // 
+            this.buttonAdvancedSettings.Location = new System.Drawing.Point(607, 463);
+            this.buttonAdvancedSettings.Name = "buttonAdvancedSettings";
+            this.buttonAdvancedSettings.Size = new System.Drawing.Size(99, 39);
+            this.buttonAdvancedSettings.TabIndex = 62;
+            this.buttonAdvancedSettings.Text = "Advanced Settings";
+            this.buttonAdvancedSettings.UseVisualStyleBackColor = true;
+            this.buttonAdvancedSettings.Click += new System.EventHandler(this.buttonAdvancedSettings_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.Controls.Add(this.buttonAdvancedSettings);
             this.Controls.Add(this.buttonDev);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -833,6 +845,7 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonDev;
+        private System.Windows.Forms.Button buttonAdvancedSettings;
     }
 }
 
