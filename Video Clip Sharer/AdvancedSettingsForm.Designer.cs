@@ -43,7 +43,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxMaxBitrate
             // 
-            this.textBoxMaxBitrate.Location = new System.Drawing.Point(166, 166);
+            this.textBoxMaxBitrate.Location = new System.Drawing.Point(174, 144);
             this.textBoxMaxBitrate.Name = "textBoxMaxBitrate";
             this.textBoxMaxBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMaxBitrate.TabIndex = 0;
@@ -53,7 +53,7 @@ namespace Video_Clip_Sharer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 169);
+            this.label1.Location = new System.Drawing.Point(87, 147);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
@@ -63,7 +63,7 @@ namespace Video_Clip_Sharer
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(59, 143);
+            this.label2.Location = new System.Drawing.Point(67, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 13);
             this.label2.TabIndex = 3;
@@ -71,7 +71,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxAvgBitrate
             // 
-            this.textBoxAvgBitrate.Location = new System.Drawing.Point(166, 140);
+            this.textBoxAvgBitrate.Location = new System.Drawing.Point(174, 118);
             this.textBoxAvgBitrate.Name = "textBoxAvgBitrate";
             this.textBoxAvgBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxAvgBitrate.TabIndex = 2;
@@ -81,7 +81,7 @@ namespace Video_Clip_Sharer
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(82, 117);
+            this.label4.Location = new System.Drawing.Point(90, 95);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 5;
@@ -89,7 +89,7 @@ namespace Video_Clip_Sharer
             // 
             // textBoxMinBitrate
             // 
-            this.textBoxMinBitrate.Location = new System.Drawing.Point(166, 114);
+            this.textBoxMinBitrate.Location = new System.Drawing.Point(174, 92);
             this.textBoxMinBitrate.Name = "textBoxMinBitrate";
             this.textBoxMinBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMinBitrate.TabIndex = 4;
@@ -99,17 +99,16 @@ namespace Video_Clip_Sharer
             // labelOutputFileSize
             // 
             this.labelOutputFileSize.AutoSize = true;
-            this.labelOutputFileSize.Location = new System.Drawing.Point(32, 209);
+            this.labelOutputFileSize.Location = new System.Drawing.Point(40, 187);
             this.labelOutputFileSize.Name = "labelOutputFileSize";
             this.labelOutputFileSize.Size = new System.Drawing.Size(132, 13);
             this.labelOutputFileSize.TabIndex = 6;
             this.labelOutputFileSize.Text = "Expected Output File Size:";
-            this.labelOutputFileSize.Visible = false;
             // 
             // labelVideoLength
             // 
             this.labelVideoLength.AutoSize = true;
-            this.labelVideoLength.Location = new System.Drawing.Point(56, 66);
+            this.labelVideoLength.Location = new System.Drawing.Point(64, 44);
             this.labelVideoLength.Name = "labelVideoLength";
             this.labelVideoLength.Size = new System.Drawing.Size(108, 13);
             this.labelVideoLength.TabIndex = 7;
@@ -118,7 +117,7 @@ namespace Video_Clip_Sharer
             // labelAverageBitrate
             // 
             this.labelAverageBitrate.AutoSize = true;
-            this.labelAverageBitrate.Location = new System.Drawing.Point(51, 92);
+            this.labelAverageBitrate.Location = new System.Drawing.Point(59, 70);
             this.labelAverageBitrate.Name = "labelAverageBitrate";
             this.labelAverageBitrate.Size = new System.Drawing.Size(113, 13);
             this.labelAverageBitrate.TabIndex = 8;
@@ -128,7 +127,7 @@ namespace Video_Clip_Sharer
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label3.Location = new System.Drawing.Point(32, 9);
+            this.label3.Location = new System.Drawing.Point(5, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(304, 13);
             this.label3.TabIndex = 9;
@@ -138,7 +137,7 @@ namespace Video_Clip_Sharer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 276);
+            this.ClientSize = new System.Drawing.Size(321, 276);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelAverageBitrate);
             this.Controls.Add(this.labelVideoLength);
@@ -150,7 +149,10 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxMaxBitrate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AdvancedSettingsForm";
+            this.ShowIcon = false;
             this.Text = "Advanced Settings";
             this.Load += new System.EventHandler(this.AdvancedSettingsForm_Load);
             this.ResumeLayout(false);

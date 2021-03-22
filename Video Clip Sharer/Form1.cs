@@ -718,7 +718,7 @@ namespace Video_Clip_Sharer
                 progressBarRender.Value = 0;
                 var inputFile = new MediaFile(exportSettings.videoPath);
                 
-                var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));//"C:\\ffmpeg\\bin\\ffmpeg.exe");
+                var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));
                 //textBoxLog.Text = this.ffmpegDirectory;
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Data += OnData;

@@ -13,6 +13,7 @@ namespace Video_Clip_Sharer
     public partial class AdvancedSettingsForm : Form
     {
         public bitrate bitrate { get; set; }
+        public double duration { get; set; }
         public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
         {
             InitializeComponent();
@@ -28,7 +29,8 @@ namespace Video_Clip_Sharer
                 double startTimeTemp = startTime;
                 if (endTime == -1) endTimeTemp = videoData.PrimaryVideoStream.Duration.TotalMilliseconds;
                 if (startTime == -1) startTimeTemp = 0;
-                labelVideoLength.Text = "Output Video Length: " + TimeSpan.FromMilliseconds(endTimeTemp - startTimeTemp).ToString(@"mm\m\:ss\s");
+                this.duration = endTimeTemp - startTimeTemp;
+                labelVideoLength.Text = "Output Video Length: " + TimeSpan.FromMilliseconds(this.duration).ToString(@"mm\m\:ss\s");
 
 
                 labelAverageBitrate.Text = "Video Average Bitrate: " + (int)(videoData.PrimaryVideoStream.BitRate/1000) + " kbps";
@@ -213,11 +215,17 @@ namespace Video_Clip_Sharer
                 if (String.IsNullOrEmpty(textBoxAvgBitrate.Text))
                 {
                     this.bitrate.avgBitrate = 0;
+                    labelOutputFileSize.Text = "Expected Output File Size:";
                 }
                 else
                 {
                     int val = int.Parse(textBoxAvgBitrate.Text);
                     this.bitrate.avgBitrate = val;
+
+
+                    double expectedFileSize = (int)(((double)this.bitrate.avgBitrate / 8192.0) * (this.duration / 1000.0));
+                    labelOutputFileSize.Text = "Expected Output File Size: " + expectedFileSize.ToString() + "MB";
+
                 }
             }
             catch (Exception err)

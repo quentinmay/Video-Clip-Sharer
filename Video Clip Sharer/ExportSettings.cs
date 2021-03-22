@@ -242,18 +242,17 @@ namespace Video_Clip_Sharer
             } else //Then we are using min, avg, or max bitrate
             {
                 List<string> bitrateAr = new List<string>();
-                string bitrateString = "";
                 if (this.bitrate.minBitrate != 0)
                 {
-                    bitrateAr.Add("-minrate " + this.bitrate.minBitrate);
+                    bitrateAr.Add("-minrate " + this.bitrate.minBitrate + "k");
                 }
                 if (this.bitrate.avgBitrate != 0)
                 {
-                    bitrateAr.Add("-b:v " + this.bitrate.avgBitrate);
+                    bitrateAr.Add("-b:v " + this.bitrate.avgBitrate + "k");
                 }
                 if (this.bitrate.maxBitrate != 0)
                 {
-                    bitrateAr.Add("-maxrate " + this.bitrate.maxBitrate);
+                    bitrateAr.Add("-maxrate " + this.bitrate.maxBitrate + "k");
                 }
                 return String.Join(" ", bitrateAr);
             }
