@@ -1012,12 +1012,30 @@ namespace Video_Clip_Sharer
         {
             if (this.uiSettings.exportSettings.videoPath != null)
             {
-                var advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate);
-                advancedSettings.Show(this);
+                using (AdvancedSettingsForm advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate))
+                {
+                    advancedSettings.ShowDialog();
+                    uiSettings.exportSettings.bitrate = advancedSettings.bitrate;
+                }
+
             }
 
         }
+
+        private void textBoxScaleX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(uiSettings.exportSettings.bitrate.minBitrate.ToString());
+        }
     }
+
 
     //Listview comparer class gotten from Microsoft website. Need to update and make my own.
     public class ListViewComparer : System.Collections.IComparer
@@ -1087,4 +1105,7 @@ namespace Video_Clip_Sharer
             }
         }
     }
-}
+
+
+    }
+

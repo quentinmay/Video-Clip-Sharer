@@ -12,11 +12,11 @@ namespace Video_Clip_Sharer
 {
     public partial class AdvancedSettingsForm : Form
     {
-
+        public bitrate bitrate { get; set; }
         public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
         {
             InitializeComponent();
-
+            this.bitrate = bitrate;
             populateVideoData(videoData, startTime, endTime, bitrate);
 
         }
@@ -28,10 +28,11 @@ namespace Video_Clip_Sharer
                 double startTimeTemp = startTime;
                 if (endTime == -1) endTimeTemp = videoData.PrimaryVideoStream.Duration.TotalMilliseconds;
                 if (startTime == -1) startTimeTemp = 0;
-                labelVideoLength.Text = "Output Video Length: " + TimeSpan.FromMilliseconds(endTimeTemp - startTimeTemp).ToString(@"mm\:ss");
+                labelVideoLength.Text = "Output Video Length: " + TimeSpan.FromMilliseconds(endTimeTemp - startTimeTemp).ToString(@"mm\m\:ss\s");
 
 
                 labelAverageBitrate.Text = "Video Average Bitrate: " + (int)(videoData.PrimaryVideoStream.BitRate/1000) + " kbps";
+
 
                 textBoxMinBitrate.Text = bitrate.minBitrate.ToString();
                 textBoxAvgBitrate.Text = bitrate.avgBitrate.ToString();
@@ -71,7 +72,7 @@ namespace Video_Clip_Sharer
             -qp 0-51 CAN ONLY BE USED WITH CONSTANT BITRATE above . DOESNT WORK FOR 2.
             -cq 0-51 CAN BE USED WITH 3, 1.
             -maxrate 500k
-            -b:v CAN B EUSED WITH 2 (CONSTANT BITRATE).
+            -b:v CAN BE USED WITH 2 (CONSTANT BITRATE).
 
         Encoder h264_nvenc [NVIDIA NVENC H.264 encoder]:
             General capabilities: delay hardware
@@ -188,16 +189,86 @@ namespace Video_Clip_Sharer
 
         private void textBoxMinBitrate_TextChanged(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (String.IsNullOrEmpty(textBoxMinBitrate.Text))
+                {
+                    this.bitrate.minBitrate = 0;
+                } else
+                {
+                    int val = int.Parse(textBoxMinBitrate.Text);
+                    this.bitrate.minBitrate = val;
+                }
+            } catch (Exception err)
+            {
+                Console.WriteLine(err.ToString());
+            }
+      
         }
 
         private void textBoxAvgBitrate_TextChanged(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (String.IsNullOrEmpty(textBoxAvgBitrate.Text))
+                {
+                    this.bitrate.avgBitrate = 0;
+                }
+                else
+                {
+                    int val = int.Parse(textBoxAvgBitrate.Text);
+                    this.bitrate.avgBitrate = val;
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.ToString());
+            }
         }
         private void textBoxMaxBitrate_TextChanged(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (String.IsNullOrEmpty(textBoxMaxBitrate.Text))
+                {
+                    this.bitrate.maxBitrate = 0;
+                }
+                else
+                {
+                    int val = int.Parse(textBoxMaxBitrate.Text);
+                    this.bitrate.maxBitrate = val;
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.ToString());
+            }
         }
+
+        private void textBoxMinBitrate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxAvgBitrate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            
+        }
+
+        private void textBoxMaxBitrate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+                
     }
 }

@@ -42,16 +42,17 @@ namespace Video_Clip_Sharer
             // 
             // textBoxMaxBitrate
             // 
-            this.textBoxMaxBitrate.Location = new System.Drawing.Point(180, 130);
+            this.textBoxMaxBitrate.Location = new System.Drawing.Point(166, 166);
             this.textBoxMaxBitrate.Name = "textBoxMaxBitrate";
-            this.textBoxMaxBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMaxBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMaxBitrate.TabIndex = 0;
             this.textBoxMaxBitrate.TextChanged += new System.EventHandler(this.textBoxMaxBitrate_TextChanged);
+            this.textBoxMaxBitrate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxBitrate_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(93, 133);
+            this.label1.Location = new System.Drawing.Point(79, 169);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 1;
@@ -61,7 +62,7 @@ namespace Video_Clip_Sharer
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(73, 107);
+            this.label2.Location = new System.Drawing.Point(59, 143);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(105, 13);
             this.label2.TabIndex = 3;
@@ -69,16 +70,17 @@ namespace Video_Clip_Sharer
             // 
             // textBoxAvgBitrate
             // 
-            this.textBoxAvgBitrate.Location = new System.Drawing.Point(180, 104);
+            this.textBoxAvgBitrate.Location = new System.Drawing.Point(166, 140);
             this.textBoxAvgBitrate.Name = "textBoxAvgBitrate";
-            this.textBoxAvgBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAvgBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxAvgBitrate.TabIndex = 2;
             this.textBoxAvgBitrate.TextChanged += new System.EventHandler(this.textBoxAvgBitrate_TextChanged);
+            this.textBoxAvgBitrate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAvgBitrate_KeyPress);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(96, 81);
+            this.label4.Location = new System.Drawing.Point(82, 117);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 5;
@@ -86,25 +88,27 @@ namespace Video_Clip_Sharer
             // 
             // textBoxMinBitrate
             // 
-            this.textBoxMinBitrate.Location = new System.Drawing.Point(180, 78);
+            this.textBoxMinBitrate.Location = new System.Drawing.Point(166, 114);
             this.textBoxMinBitrate.Name = "textBoxMinBitrate";
-            this.textBoxMinBitrate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMinBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMinBitrate.TabIndex = 4;
             this.textBoxMinBitrate.TextChanged += new System.EventHandler(this.textBoxMinBitrate_TextChanged);
+            this.textBoxMinBitrate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMinBitrate_KeyPress);
             // 
             // labelOutputFileSize
             // 
             this.labelOutputFileSize.AutoSize = true;
-            this.labelOutputFileSize.Location = new System.Drawing.Point(46, 173);
+            this.labelOutputFileSize.Location = new System.Drawing.Point(32, 209);
             this.labelOutputFileSize.Name = "labelOutputFileSize";
             this.labelOutputFileSize.Size = new System.Drawing.Size(132, 13);
             this.labelOutputFileSize.TabIndex = 6;
             this.labelOutputFileSize.Text = "Expected Output File Size:";
+            this.labelOutputFileSize.Visible = false;
             // 
             // labelVideoLength
             // 
             this.labelVideoLength.AutoSize = true;
-            this.labelVideoLength.Location = new System.Drawing.Point(70, 23);
+            this.labelVideoLength.Location = new System.Drawing.Point(56, 66);
             this.labelVideoLength.Name = "labelVideoLength";
             this.labelVideoLength.Size = new System.Drawing.Size(108, 13);
             this.labelVideoLength.TabIndex = 7;
@@ -113,7 +117,7 @@ namespace Video_Clip_Sharer
             // labelAverageBitrate
             // 
             this.labelAverageBitrate.AutoSize = true;
-            this.labelAverageBitrate.Location = new System.Drawing.Point(65, 49);
+            this.labelAverageBitrate.Location = new System.Drawing.Point(51, 92);
             this.labelAverageBitrate.Name = "labelAverageBitrate";
             this.labelAverageBitrate.Size = new System.Drawing.Size(113, 13);
             this.labelAverageBitrate.TabIndex = 8;
@@ -135,7 +139,7 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.textBoxMaxBitrate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AdvancedSettingsForm";
-            this.Text = "AdvancedSettingsForm";
+            this.Text = "Advanced Settings";
             this.Load += new System.EventHandler(this.AdvancedSettingsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

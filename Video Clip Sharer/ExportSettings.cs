@@ -40,6 +40,7 @@ namespace Video_Clip_Sharer
             this.fps = -1;
             this.outputName = "";
             this.outputFormat = "h264"; //default to h264
+            this.bitrate = new bitrate();
         }
 
         
@@ -321,6 +322,13 @@ namespace Video_Clip_Sharer
         public int minBitrate { get; set; }
         public int avgBitrate { get; set; }
         public int maxBitrate { get; set; }
+
+        public bitrate()
+        {
+            this.minBitrate = -1;
+            this.avgBitrate = -1;
+            this.maxBitrate = -1;
+        }
         public bitrate(int minBitrate, int avgBitrate, int maxBitrate)
         {
             this.minBitrate = minBitrate;
