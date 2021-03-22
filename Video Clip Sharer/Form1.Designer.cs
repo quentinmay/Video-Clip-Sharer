@@ -94,7 +94,6 @@ namespace Video_Clip_Sharer
             this.label9 = new System.Windows.Forms.Label();
             this.buttonDev = new System.Windows.Forms.Button();
             this.buttonAdvancedSettings = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -696,23 +695,12 @@ namespace Video_Clip_Sharer
             this.buttonAdvancedSettings.UseVisualStyleBackColor = true;
             this.buttonAdvancedSettings.Click += new System.EventHandler(this.buttonAdvancedSettings_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(643, 340);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 63;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonAdvancedSettings);
             this.Controls.Add(this.buttonDev);
             this.Controls.Add(this.label8);
@@ -859,7 +847,6 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonDev;
         private System.Windows.Forms.Button buttonAdvancedSettings;
-        private System.Windows.Forms.Button button1;
     }
 }
 

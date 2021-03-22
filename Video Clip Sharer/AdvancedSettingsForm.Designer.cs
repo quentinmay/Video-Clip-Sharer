@@ -38,6 +38,7 @@ namespace Video_Clip_Sharer
             this.labelOutputFileSize = new System.Windows.Forms.Label();
             this.labelVideoLength = new System.Windows.Forms.Label();
             this.labelAverageBitrate = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxMaxBitrate
@@ -123,11 +124,22 @@ namespace Video_Clip_Sharer
             this.labelAverageBitrate.TabIndex = 8;
             this.labelAverageBitrate.Text = "Video Average Bitrate:";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label3.Location = new System.Drawing.Point(32, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(304, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "These changes will overwrite any given \"Quality\" options given";
+            // 
             // AdvancedSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 276);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.labelAverageBitrate);
             this.Controls.Add(this.labelVideoLength);
             this.Controls.Add(this.labelOutputFileSize);
@@ -157,5 +169,6 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label labelOutputFileSize;
         private System.Windows.Forms.Label labelVideoLength;
         private System.Windows.Forms.Label labelAverageBitrate;
+        private System.Windows.Forms.Label label3;
     }
 }

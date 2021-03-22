@@ -1030,10 +1030,7 @@ namespace Video_Clip_Sharer
                 e.Handled = true;
             }
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(uiSettings.exportSettings.bitrate.minBitrate.ToString());
-        }
+ 
     }
 
 

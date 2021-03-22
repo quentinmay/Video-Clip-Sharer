@@ -224,18 +224,38 @@ namespace Video_Clip_Sharer
         //https://trac.ffmpeg.org/wiki/Encode/H.264 reference for quality parameter for h264 encoding specifically
         async public Task<string> generateQualityTag()
         {
-            switch(this.outputFormat)
+            if (this.bitrate.minBitrate == 0 && this.bitrate.avgBitrate == 0 && this.bitrate.maxBitrate == 0) //If we dont use any advanced bitrate options.
             {
-                case "h264_nvenc":
-                    return "-qmin " + quality;
-                    break;
-                case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
-                    return "-crf " + quality + " -b:v 0";
-                    break;
-                default:
-                    //copy implies that it copys the video encoding format so that we dont reencode into something different.
-                    return "-crf " + quality;
-                    break;
+                switch (this.outputFormat)
+                {
+                    case "h264_nvenc":
+                        return "-qmin " + quality;
+                        break;
+                    case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
+                        return "-crf " + quality + " -b:v 0";
+                        break;
+                    default:
+                        //copy implies that it copys the video encoding format so that we dont reencode into something different.
+                        return "-crf " + quality;
+                        break;
+                }
+            } else //Then we are using min, avg, or max bitrate
+            {
+                List<string> bitrateAr = new List<string>();
+                string bitrateString = "";
+                if (this.bitrate.minBitrate != 0)
+                {
+                    bitrateAr.Add("-minrate " + this.bitrate.minBitrate);
+                }
+                if (this.bitrate.avgBitrate != 0)
+                {
+                    bitrateAr.Add("-b:v " + this.bitrate.avgBitrate);
+                }
+                if (this.bitrate.maxBitrate != 0)
+                {
+                    bitrateAr.Add("-maxrate " + this.bitrate.maxBitrate);
+                }
+                return String.Join(" ", bitrateAr);
             }
             //copy encoding hardcoded in for now. Room still is left for encoding into different formats like h265, nvenc etc, but they also0 have different quality parameters.
 
@@ -325,9 +345,9 @@ namespace Video_Clip_Sharer
 
         public bitrate()
         {
-            this.minBitrate = -1;
-            this.avgBitrate = -1;
-            this.maxBitrate = -1;
+            this.minBitrate = 0;
+            this.avgBitrate = 0;
+            this.maxBitrate = 0;
         }
         public bitrate(int minBitrate, int avgBitrate, int maxBitrate)
         {
