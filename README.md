@@ -1,4 +1,4 @@
-# 🎬Video Clip Sharer
+# 🎞 Video Clip Sharer
 
 This is a basic video editor developed using C# and heavily dependent on FFmpeg and VLC libraries.
 
