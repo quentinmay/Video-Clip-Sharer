@@ -609,6 +609,7 @@ namespace Video_Clip_Sharer
             // 
             // comboBoxOutputFormat
             // 
+            this.comboBoxOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOutputFormat.FormattingEnabled = true;
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
             "Same As Source (usually h264)",
@@ -619,7 +620,6 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
             this.comboBoxOutputFormat.Size = new System.Drawing.Size(145, 21);
             this.comboBoxOutputFormat.TabIndex = 54;
-            this.comboBoxOutputFormat.Text = "Output Format";
             this.comboBoxOutputFormat.SelectedIndexChanged += new System.EventHandler(this.comboBoxOutputFormat_SelectedIndexChanged);
             // 
             // textBoxScaleX
