@@ -615,7 +615,8 @@ namespace Video_Clip_Sharer
             "Same As Source (usually h264)",
             "h264_nvenc",
             "libvpx-vp9",
-            "gif"});
+            "gif",
+            "audio/mp3"});
             this.comboBoxOutputFormat.Location = new System.Drawing.Point(710, 387);
             this.comboBoxOutputFormat.Name = "comboBoxOutputFormat";
             this.comboBoxOutputFormat.Size = new System.Drawing.Size(145, 21);

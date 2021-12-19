@@ -84,6 +84,23 @@ namespace Video_Clip_Sharer
 
                     return String.Join(" ", ffmpegCommandList); ;
                     break;
+                case "audio/mp3":
+
+                    ffmpegCommandList.Add(await this.generateAudioTracksTag());
+
+                    //ffmpegCommandList.Add(await this.generateAudioQualityTag());
+
+
+                    //ffmpegCommandList.Add(await this.generateGifVfTag());
+
+                    ffmpegCommandList.Add(await this.generateStartTag());
+
+                    ffmpegCommandList.Add(await this.generateEndTag());
+
+                    ffmpegCommandList.Add(await this.generateOutputTag());
+
+                    return String.Join(" ", ffmpegCommandList); ;
+                    break;
                 case "h264_nvenc":
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
 
@@ -182,6 +199,9 @@ namespace Video_Clip_Sharer
                     break;
                 case "libvpx-vp9":
                     extension = ".webm";
+                    break;
+                case "audio/mp3":
+                    extension = ".mp3";
                     break;
                 default:
                     extension = Path.GetExtension(videoPath);
