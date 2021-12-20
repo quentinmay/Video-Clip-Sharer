@@ -39,11 +39,12 @@ namespace Video_Clip_Sharer
             this.labelVideoLength = new System.Windows.Forms.Label();
             this.labelAverageBitrate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelAudioBitrate = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxMaxBitrate
             // 
-            this.textBoxMaxBitrate.Location = new System.Drawing.Point(174, 144);
+            this.textBoxMaxBitrate.Location = new System.Drawing.Point(174, 183);
             this.textBoxMaxBitrate.Name = "textBoxMaxBitrate";
             this.textBoxMaxBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMaxBitrate.TabIndex = 0;
@@ -53,25 +54,25 @@ namespace Video_Clip_Sharer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(87, 147);
+            this.label1.Location = new System.Drawing.Point(57, 186);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.Size = new System.Drawing.Size(115, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Max Bitrate kb/s";
+            this.label1.Text = "Video Max Bitrate kb/s";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(67, 121);
+            this.label2.Location = new System.Drawing.Point(37, 160);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 13);
+            this.label2.Size = new System.Drawing.Size(135, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Average Bitrate kb/s";
+            this.label2.Text = "Video Average Bitrate kb/s";
             // 
             // textBoxAvgBitrate
             // 
-            this.textBoxAvgBitrate.Location = new System.Drawing.Point(174, 118);
+            this.textBoxAvgBitrate.Location = new System.Drawing.Point(174, 157);
             this.textBoxAvgBitrate.Name = "textBoxAvgBitrate";
             this.textBoxAvgBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxAvgBitrate.TabIndex = 2;
@@ -81,15 +82,15 @@ namespace Video_Clip_Sharer
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 95);
+            this.label4.Location = new System.Drawing.Point(60, 134);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.Size = new System.Drawing.Size(112, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Min Bitrate kb/s";
+            this.label4.Text = "Video Min Bitrate kb/s";
             // 
             // textBoxMinBitrate
             // 
-            this.textBoxMinBitrate.Location = new System.Drawing.Point(174, 92);
+            this.textBoxMinBitrate.Location = new System.Drawing.Point(174, 131);
             this.textBoxMinBitrate.Name = "textBoxMinBitrate";
             this.textBoxMinBitrate.Size = new System.Drawing.Size(70, 20);
             this.textBoxMinBitrate.TabIndex = 4;
@@ -99,7 +100,7 @@ namespace Video_Clip_Sharer
             // labelOutputFileSize
             // 
             this.labelOutputFileSize.AutoSize = true;
-            this.labelOutputFileSize.Location = new System.Drawing.Point(40, 187);
+            this.labelOutputFileSize.Location = new System.Drawing.Point(40, 226);
             this.labelOutputFileSize.Name = "labelOutputFileSize";
             this.labelOutputFileSize.Size = new System.Drawing.Size(132, 13);
             this.labelOutputFileSize.TabIndex = 6;
@@ -133,11 +134,21 @@ namespace Video_Clip_Sharer
             this.label3.TabIndex = 9;
             this.label3.Text = "These changes will overwrite any given \"Quality\" options given";
             // 
+            // labelAudioBitrate
+            // 
+            this.labelAudioBitrate.AutoSize = true;
+            this.labelAudioBitrate.Location = new System.Drawing.Point(59, 95);
+            this.labelAudioBitrate.Name = "labelAudioBitrate";
+            this.labelAudioBitrate.Size = new System.Drawing.Size(113, 13);
+            this.labelAudioBitrate.TabIndex = 10;
+            this.labelAudioBitrate.Text = "Audio Average Bitrate:";
+            // 
             // AdvancedSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 276);
+            this.Controls.Add(this.labelAudioBitrate);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelAverageBitrate);
             this.Controls.Add(this.labelVideoLength);
@@ -172,5 +183,6 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label labelVideoLength;
         private System.Windows.Forms.Label labelAverageBitrate;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelAudioBitrate;
     }
 }

@@ -208,6 +208,7 @@ namespace Video_Clip_Sharer
 
         async public Task importVideo(string path)
         {
+            //MessageBox.Show(this.ffmpegDirectory);
             FFMpegOptions.Configure(new FFMpegOptions { RootDirectory = this.ffmpegDirectory, TempDirectory = "/tmp" });
             IMediaAnalysis tmp = await FFProbe.AnalyseAsync(path);
 
@@ -256,10 +257,14 @@ namespace Video_Clip_Sharer
         {
             try
             {
-                if (!File.Exists(uiSettings.exportSettings.videoPath)) throw new Exception();
+                if (!File.Exists(uiSettings.exportSettings.videoPath))
+                {
+                    throw new Exception();
+                }
                 this.uiSettings = uiSettings;
                 if (this.uiSettings.exportSettings.videoPath != null)
                 {
+
                     await importVideo(uiSettings.exportSettings.videoPath);
                 }
                 checkBoxShowCrop.Checked = uiSettings.showCrop;
@@ -277,6 +282,7 @@ namespace Video_Clip_Sharer
                     }
 
                 }
+
                 //After we've finished setting up the ui, we can then visualize a new crop and a new video range bar.
                 visualizeCrop(axVLCPlugin21);
                 visualizeStart(uiSettings.exportSettings.startTime);
@@ -1030,7 +1036,7 @@ namespace Video_Clip_Sharer
                 e.Handled = true;
             }
         }
- 
+
     }
 
 

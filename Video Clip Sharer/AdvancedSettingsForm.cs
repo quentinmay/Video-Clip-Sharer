@@ -14,10 +14,13 @@ namespace Video_Clip_Sharer
     {
         public bitrate bitrate { get; set; }
         public double duration { get; set; }
+        FFMpegCore.IMediaAnalysis videoData { get; set; }
         public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
         {
             InitializeComponent();
             this.bitrate = bitrate;
+
+            this.videoData = videoData;
             populateVideoData(videoData, startTime, endTime, bitrate);
 
         }
@@ -34,6 +37,11 @@ namespace Video_Clip_Sharer
 
 
                 labelAverageBitrate.Text = "Video Average Bitrate: " + (int)(videoData.PrimaryVideoStream.BitRate/1000) + " kbps";
+                labelAudioBitrate.Text = "No Audio Tracks";
+                if (videoData.PrimaryAudioStream != null && !double.IsNaN(videoData.PrimaryAudioStream.BitRate))
+                {
+                    labelAudioBitrate.Text = "Audio Average Bitrate: " + (int)(videoData.PrimaryAudioStream.BitRate/1000) + " kbps";
+                }
 
 
                 textBoxMinBitrate.Text = bitrate.minBitrate.ToString();
@@ -223,7 +231,7 @@ namespace Video_Clip_Sharer
                     this.bitrate.avgBitrate = val;
 
 
-                    double expectedFileSize = (int)(((double)this.bitrate.avgBitrate / 8192.0) * (this.duration / 1000.0));
+                    double expectedFileSize = (int)((((double)this.bitrate.avgBitrate / 8192.0) * (this.duration / 1000.0)) + ((videoData.PrimaryAudioStream != null && !double.IsNaN(videoData.PrimaryAudioStream.BitRate)) ? ((videoData.PrimaryAudioStream.BitRate / 8192000.0) * (this.duration / 1000.0)) : 0));
                     labelOutputFileSize.Text = "Expected Output File Size: " + expectedFileSize.ToString() + "MB";
 
                 }
