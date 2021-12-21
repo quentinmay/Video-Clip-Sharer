@@ -731,9 +731,32 @@ namespace Video_Clip_Sharer
                 ffmpeg.Error += OnError;
                 ffmpeg.Complete += OnComplete;
                 cancelSource = new CancellationTokenSource();
-                string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
-                linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
-                await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+
+                if (uiSettings.exportSettings.twoPass == false)
+                {
+                    string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
+                    linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
+                    await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+                } else
+                {
+
+                    //First Pass:
+                    uiSettings.exportSettings.currentPass = 1;
+                    string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
+                    await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+                    //Second Pass:
+
+                    cancelSource = new CancellationTokenSource();
+                    uiSettings.exportSettings.currentPass = 2;
+                    ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
+                    uiSettings.exportSettings.currentPass = 1;
+                    await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+                    linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
+
+
+                }
+
+
             } catch(Exception err)
             {
                 Console.WriteLine(err);
@@ -779,6 +802,8 @@ namespace Video_Clip_Sharer
                 }
 
                 labelPercentComplete.Text = progressBarRender.Value.ToString() + "%";
+
+
                 labelRenderTimeElapsed.Text = "Time Elapsed: " + TimeSpan.FromSeconds(e.ProcessedDuration.TotalSeconds).ToString(@"hh\h\:mm\m\:ss\s");
                 labelFileSize.Text = "File Size: " + ((double)e.SizeKb / (double)1000).ToString(".0") + "MBs";
                 Console.WriteLine("Bitrate: {0}", e.Bitrate);
@@ -1018,10 +1043,11 @@ namespace Video_Clip_Sharer
         {
             if (this.uiSettings.exportSettings.videoPath != null)
             {
-                using (AdvancedSettingsForm advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate))
+                using (AdvancedSettingsForm advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate, uiSettings.exportSettings.twoPass))
                 {
                     advancedSettings.ShowDialog();
                     uiSettings.exportSettings.bitrate = advancedSettings.bitrate;
+                    uiSettings.exportSettings.twoPass = advancedSettings.twoPass;
                 }
 
             }

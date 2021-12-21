@@ -40,6 +40,7 @@ namespace Video_Clip_Sharer
             this.labelAverageBitrate = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.labelAudioBitrate = new System.Windows.Forms.Label();
+            this.checkBoxTwoPass = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBoxMaxBitrate
@@ -143,11 +144,23 @@ namespace Video_Clip_Sharer
             this.labelAudioBitrate.TabIndex = 10;
             this.labelAudioBitrate.Text = "Audio Average Bitrate:";
             // 
+            // checkBoxTwoPass
+            // 
+            this.checkBoxTwoPass.AutoSize = true;
+            this.checkBoxTwoPass.Location = new System.Drawing.Point(67, 247);
+            this.checkBoxTwoPass.Name = "checkBoxTwoPass";
+            this.checkBoxTwoPass.Size = new System.Drawing.Size(143, 17);
+            this.checkBoxTwoPass.TabIndex = 11;
+            this.checkBoxTwoPass.Text = "Use Two-Pass Encoding";
+            this.checkBoxTwoPass.UseVisualStyleBackColor = true;
+            this.checkBoxTwoPass.CheckedChanged += new System.EventHandler(this.checkBoxTwoPass_CheckedChanged);
+            // 
             // AdvancedSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(321, 276);
+            this.Controls.Add(this.checkBoxTwoPass);
             this.Controls.Add(this.labelAudioBitrate);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelAverageBitrate);
@@ -184,5 +197,6 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label labelAverageBitrate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelAudioBitrate;
+        private System.Windows.Forms.CheckBox checkBoxTwoPass;
     }
 }

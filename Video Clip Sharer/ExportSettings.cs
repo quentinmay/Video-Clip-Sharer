@@ -26,8 +26,8 @@ namespace Video_Clip_Sharer
         public Size scale { get; set; }
         public Size outputScale { get; set; }
         public bitrate bitrate { get; set; }
-
-
+        public bool twoPass { get; set; }
+        public int currentPass { get; set; }
         public ExportSettings()
         {
             this.audioTracks = new List<AudioTrack>();
@@ -41,9 +41,12 @@ namespace Video_Clip_Sharer
             this.outputName = "";
             this.outputFormat = "h264"; //default to h264
             this.bitrate = new bitrate();
+            this.twoPass = false;
+            this.currentPass = 1;
+
         }
 
-        
+
         /*
         async public Task<ExportSettings> generateExportSettingsFromJson(string json)
         {
@@ -52,8 +55,6 @@ namespace Video_Clip_Sharer
             {
                 this.audioTracks.Add(new AudioTrack(audioStream));
             }
-
-
         }*/
 
         async public void clearCrop()
@@ -117,6 +118,7 @@ namespace Video_Clip_Sharer
                     ffmpegCommandList.Add(await this.generateEncodingTag());
 
                     ffmpegCommandList.Add(await this.generateOutputTag());
+
 
                     return String.Join(" ", ffmpegCommandList);
                     break;
@@ -216,7 +218,20 @@ namespace Video_Clip_Sharer
             }
             
             this.outputName = Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension); //changes extension after.
-            return "\"" + Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension).ToString() + "\"";
+
+            if (twoPass == false || this.outputFormat == "gif" || this.outputFormat == "audio/mp3")
+            {
+                return "\"" + Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension).ToString() + "\"";
+            }
+            else if (currentPass == 1)
+            {
+                return "-pass 1 -an -f " + ( (extension.Replace(".", "") == "mkv") ? "matroska" : (extension.Replace(".", "") == "webm") ? extension.Replace(".", "") : "null")  + " NUL";
+
+            } else
+            {
+                return "-pass 2 " + "\"" + Path.ChangeExtension(Path.Combine(directory, fileName).ToString(), extension).ToString() + "\"";
+
+            }
 
         }
         async public Task<string> generateFPSTag()

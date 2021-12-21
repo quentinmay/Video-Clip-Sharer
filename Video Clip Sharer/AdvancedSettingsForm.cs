@@ -15,16 +15,18 @@ namespace Video_Clip_Sharer
         public bitrate bitrate { get; set; }
         public double duration { get; set; }
         FFMpegCore.IMediaAnalysis videoData { get; set; }
-        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
+        public bool twoPass { get; set; }
+        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass)
         {
             InitializeComponent();
             this.bitrate = bitrate;
 
             this.videoData = videoData;
-            populateVideoData(videoData, startTime, endTime, bitrate);
+            this.twoPass = twoPass;
+            populateVideoData(videoData, startTime, endTime, bitrate, twoPass);
 
         }
-        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate)
+        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass)
         {
             try
             {
@@ -47,6 +49,7 @@ namespace Video_Clip_Sharer
                 textBoxMinBitrate.Text = bitrate.minBitrate.ToString();
                 textBoxAvgBitrate.Text = bitrate.avgBitrate.ToString();
                 textBoxMaxBitrate.Text = bitrate.maxBitrate.ToString();
+                checkBoxTwoPass.Checked = twoPass;
 
             }
             catch (Exception err)
@@ -285,6 +288,10 @@ namespace Video_Clip_Sharer
                 e.Handled = true;
             }
         }
-                
+
+        private void checkBoxTwoPass_CheckedChanged(object sender, EventArgs e)
+        {
+            this.twoPass = checkBoxTwoPass.Checked;
+        }
     }
 }
