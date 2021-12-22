@@ -429,16 +429,16 @@ namespace Video_Clip_Sharer
         }
         async private void buttonTestPlayVideo_Click(object sender, EventArgs e)
         {
-            if (uiSettings.exportSettings.twoPass == false)
-            {
-                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
-            } else
+            if (uiSettings.exportSettings.twoPass == true && uiSettings.exportSettings.outputFormat != "gif" && uiSettings.exportSettings.outputFormat != "audio/mp3")
             {
                 uiSettings.exportSettings.currentPass = 1;
                 textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
                 uiSettings.exportSettings.currentPass = 2;
                 textBoxLog.Text += "\n" + await uiSettings.exportSettings.createFFmpegCommand();
                 uiSettings.exportSettings.currentPass = 1;
+            } else
+            {
+                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
             }
         }
 
@@ -742,14 +742,8 @@ namespace Video_Clip_Sharer
                 ffmpeg.Complete += OnComplete;
                 cancelSource = new CancellationTokenSource();
 
-                if (uiSettings.exportSettings.twoPass == false)
+                if (uiSettings.exportSettings.twoPass == true && uiSettings.exportSettings.outputFormat != "gif" && uiSettings.exportSettings.outputFormat != "audio/mp3")
                 {
-                    string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
-                    linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
-                    await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
-                } else
-                {
-
                     //First Pass:
                     uiSettings.exportSettings.currentPass = 1;
                     string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
@@ -763,7 +757,11 @@ namespace Video_Clip_Sharer
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
                     linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
 
-
+                } else
+                {
+                    string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
+                    await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
+                    linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
                 }
 
 
