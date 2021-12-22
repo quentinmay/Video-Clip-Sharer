@@ -429,7 +429,17 @@ namespace Video_Clip_Sharer
         }
         async private void buttonTestPlayVideo_Click(object sender, EventArgs e)
         {
-            textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
+            if (uiSettings.exportSettings.twoPass == false)
+            {
+                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
+            } else
+            {
+                uiSettings.exportSettings.currentPass = 1;
+                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
+                uiSettings.exportSettings.currentPass = 2;
+                textBoxLog.Text += "\n" + await uiSettings.exportSettings.createFFmpegCommand();
+                uiSettings.exportSettings.currentPass = 1;
+            }
         }
 
 

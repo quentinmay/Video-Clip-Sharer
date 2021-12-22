@@ -225,7 +225,7 @@ namespace Video_Clip_Sharer
             }
             else if (currentPass == 1)
             {
-                return "-pass 1 -an -f " + ( (extension.Replace(".", "") == "mkv") ? "matroska" : (extension.Replace(".", "") == "webm") ? extension.Replace(".", "") : "null")  + " NUL";
+                return "-pass 1 -an -f " + ( (extension.Replace(".", "") == "mkv") ? "matroska" : (extension.Replace(".", "") == "webm") ? "null": extension.Replace(".", "")) + " NUL";
 
             } else
             {
@@ -261,6 +261,7 @@ namespace Video_Clip_Sharer
         {
             if (this.bitrate.minBitrate == 0 && this.bitrate.avgBitrate == 0 && this.bitrate.maxBitrate == 0) //If we dont use any advanced bitrate options.
             {
+                Console.WriteLine(this.outputFormat);
                 switch (this.outputFormat)
                 {
                     case "h264_nvenc":
@@ -268,6 +269,15 @@ namespace Video_Clip_Sharer
                         break;
                     case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
                         return "-crf " + quality + " -b:v 0";
+                        break;
+                    case "Same As Source (usually h264)":
+                        if (this.twoPass == false)
+                        {
+                            return "-crf " + quality;
+                        } else
+                        {
+                            return "";
+                        }
                         break;
                     default:
                         //copy implies that it copys the video encoding format so that we dont reencode into something different.
