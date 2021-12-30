@@ -947,6 +947,7 @@ namespace Video_Clip_Sharer
         {
             axVLCPlugin21.audio.track = trackBarAudioTrack.Value;
             checkBoxSaveAudioTrack.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].keep;
+            checkBoxNoiseReduction.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].noiseReduce;
             trackBarVolume.Value = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].volume;
             labelCurrentAudioTrack.Text = "Current Audio Track: " + axVLCPlugin21.audio.track;
         }
@@ -969,6 +970,13 @@ namespace Video_Clip_Sharer
             if (uiSettings.exportSettings.audioTracks.Count > 0)
             {
                 uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].keep = checkBoxSaveAudioTrack.Checked;
+            }
+        }
+        private void checkBoxNoiseReduction_CheckedChanged(object sender, EventArgs e)
+        {
+            if (uiSettings.exportSettings.audioTracks.Count > 0)
+            {
+                uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].noiseReduce = checkBoxNoiseReduction.Checked;
             }
         }
 
@@ -1070,6 +1078,7 @@ namespace Video_Clip_Sharer
                 e.Handled = true;
             }
         }
+
 
     }
 

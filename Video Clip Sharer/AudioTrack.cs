@@ -17,11 +17,13 @@ namespace Video_Clip_Sharer
         public string name;
         public int volume;
         public bool keep;
+        public bool noiseReduce;
         public AudioTrack()
         {
             name = "";
             volume = 100;
             keep = true;
+            noiseReduce = false;
         }
         public AudioTrack(dynamic audioStream)
         {
@@ -29,6 +31,7 @@ namespace Video_Clip_Sharer
             this.name = audioStream.Language;
             this.volume = 100;
             this.keep = true;
+            this.noiseReduce = false;
         }
 
     }

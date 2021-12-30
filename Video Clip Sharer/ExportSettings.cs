@@ -333,7 +333,7 @@ namespace Video_Clip_Sharer
             string filterComplex = "";
             if (keptAudioTracksCount > 0)
             {
-                filterComplex = "-filter_complex ";
+                filterComplex = "-filter_complex \"";
             } else //Instead where its <=0, delete all audio tracks.
             {
                 filterComplex = "-an";
@@ -357,7 +357,14 @@ namespace Video_Clip_Sharer
                 {
 
                     charsPre += "[" + (char)index + "]";
-                    filterComplex += ("[0:a:" + (((int)audioTrack.audioStream.Index) - indexSubtractor) + "]volume=" + ((double)audioTrack.volume / 100));
+                    filterComplex += "[0:a:" + (((int)audioTrack.audioStream.Index) - indexSubtractor) + "]";
+
+                    if (audioTrack.noiseReduce == true)
+                    {
+                        filterComplex += "arnndn=m=\\'" + AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "/") + "cb.rnnn\\',";
+                    }
+
+                    filterComplex += "volume=" + ((double)audioTrack.volume / 100);
                     if (keptAudioTracksCount > 1) filterComplex += "[" + (char)index + "];";//if were saving multiple audiotracks, we need to add this onto the end for the amix later
 
                     index++;
@@ -367,6 +374,7 @@ namespace Video_Clip_Sharer
             {
                 filterComplex += charsPre + "amix=inputs=" + keptAudioTracksCount;
             }
+            filterComplex += "\"";
             //if (filterComplex.Last() == ';') filterComplex = filterComplex.Remove(filterComplex.Length - 1, 1); //removes ending ; if its there. should only occur when using 1 audio track
             return filterComplex;
         }

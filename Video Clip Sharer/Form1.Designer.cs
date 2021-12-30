@@ -94,6 +94,7 @@ namespace Video_Clip_Sharer
             this.label9 = new System.Windows.Forms.Label();
             this.buttonDev = new System.Windows.Forms.Button();
             this.buttonAdvancedSettings = new System.Windows.Forms.Button();
+            this.checkBoxNoiseReduction = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -696,12 +697,24 @@ namespace Video_Clip_Sharer
             this.buttonAdvancedSettings.UseVisualStyleBackColor = true;
             this.buttonAdvancedSettings.Click += new System.EventHandler(this.buttonAdvancedSettings_Click);
             // 
+            // checkBoxNoiseReduction
+            // 
+            this.checkBoxNoiseReduction.AutoSize = true;
+            this.checkBoxNoiseReduction.Location = new System.Drawing.Point(934, 0);
+            this.checkBoxNoiseReduction.Name = "checkBoxNoiseReduction";
+            this.checkBoxNoiseReduction.Size = new System.Drawing.Size(105, 17);
+            this.checkBoxNoiseReduction.TabIndex = 63;
+            this.checkBoxNoiseReduction.Text = "Noise Reduction";
+            this.checkBoxNoiseReduction.UseVisualStyleBackColor = true;
+            this.checkBoxNoiseReduction.CheckedChanged += new System.EventHandler(this.checkBoxNoiseReduction_CheckedChanged);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.Controls.Add(this.checkBoxNoiseReduction);
             this.Controls.Add(this.buttonAdvancedSettings);
             this.Controls.Add(this.buttonDev);
             this.Controls.Add(this.label8);
@@ -848,6 +861,7 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonDev;
         private System.Windows.Forms.Button buttonAdvancedSettings;
+        private System.Windows.Forms.CheckBox checkBoxNoiseReduction;
     }
 }
 
