@@ -20,6 +20,9 @@ axVLCPlugin is required in order to run the editor. This comes installed by defa
 ## FFmpeg
 Tested specifically with FFmpeg and FFProbe binaries (FFmpeg version 4.3.2-2021-02-27-essentials_build-www.gyan.dev and FFprobe version N-60329-ge708424). Binaries by default will be placed in users temp folder.
 
+## Noise Reduction Models
+Included along with the ffmpeg binaries is a trained neural network model created by [GregorR](https://github.com/GregorR) that can be found [here](https://github.com/GregorR/rnnoise-models). When included in the application directory, ffmpeg can use this model to hopefully reduce background audio noise. I chose to use the conjoined-burgers-2018-08-28 model as it worked well for my samples.
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
