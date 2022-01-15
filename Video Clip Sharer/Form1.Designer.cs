@@ -38,7 +38,6 @@ namespace Video_Clip_Sharer
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
-            this.textBoxLog = new System.Windows.Forms.TextBox();
             this.checkBoxStayInBoundary = new System.Windows.Forms.CheckBox();
             this.checkBoxShowCrop = new System.Windows.Forms.CheckBox();
             this.trackBarFPS = new System.Windows.Forms.TrackBar();
@@ -95,6 +94,7 @@ namespace Video_Clip_Sharer
             this.buttonDev = new System.Windows.Forms.Button();
             this.buttonAdvancedSettings = new System.Windows.Forms.Button();
             this.checkBoxNoiseReduction = new System.Windows.Forms.CheckBox();
+            this.textBoxLog = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarFPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarQuality)).BeginInit();
@@ -158,15 +158,6 @@ namespace Video_Clip_Sharer
             this.axVLCPlugin21.TabIndex = 7;
             this.axVLCPlugin21.MediaPlayerTimeChanged += new AxAXVLC.DVLCEvents_MediaPlayerTimeChangedEventHandler(this.axVLCPlugin21_MediaPlayerTimeChanged);
             this.axVLCPlugin21.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.axVLCPlugin21_PreviewKeyDown);
-            // 
-            // textBoxLog
-            // 
-            this.textBoxLog.Location = new System.Drawing.Point(439, 393);
-            this.textBoxLog.Multiline = true;
-            this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.Size = new System.Drawing.Size(162, 131);
-            this.textBoxLog.TabIndex = 8;
-            this.textBoxLog.Visible = false;
             // 
             // checkBoxStayInBoundary
             // 
@@ -470,6 +461,7 @@ namespace Video_Clip_Sharer
             this.trackBarVolume.TabIndex = 37;
             this.trackBarVolume.Value = 100;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
+            this.trackBarVolume.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseUp);
             // 
             // labelTimestamp
             // 
@@ -708,12 +700,25 @@ namespace Video_Clip_Sharer
             this.checkBoxNoiseReduction.UseVisualStyleBackColor = true;
             this.checkBoxNoiseReduction.CheckedChanged += new System.EventHandler(this.checkBoxNoiseReduction_CheckedChanged);
             // 
+            // textBoxLog
+            // 
+            this.textBoxLog.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLog.Location = new System.Drawing.Point(12, 543);
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.ReadOnly = true;
+            this.textBoxLog.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.textBoxLog.Size = new System.Drawing.Size(1014, 181);
+            this.textBoxLog.TabIndex = 64;
+            this.textBoxLog.Text = "";
+            this.textBoxLog.Visible = false;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 536);
+            this.ClientSize = new System.Drawing.Size(1038, 736);
+            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.checkBoxNoiseReduction);
             this.Controls.Add(this.buttonAdvancedSettings);
             this.Controls.Add(this.buttonDev);
@@ -769,7 +774,6 @@ namespace Video_Clip_Sharer
             this.Controls.Add(this.buttonTestPlayVideo);
             this.Controls.Add(this.linkLabelVideoPath);
             this.Controls.Add(this.labelPercentComplete);
-            this.Controls.Add(this.textBoxLog);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label9);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -805,7 +809,6 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBox1;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
-        private System.Windows.Forms.TextBox textBoxLog;
         private System.Windows.Forms.CheckBox checkBoxStayInBoundary;
         private System.Windows.Forms.CheckBox checkBoxShowCrop;
         private System.Windows.Forms.TrackBar trackBarFPS;
@@ -862,6 +865,7 @@ namespace Video_Clip_Sharer
         private System.Windows.Forms.Button buttonDev;
         private System.Windows.Forms.Button buttonAdvancedSettings;
         private System.Windows.Forms.CheckBox checkBoxNoiseReduction;
+        private System.Windows.Forms.RichTextBox textBoxLog;
     }
 }
 

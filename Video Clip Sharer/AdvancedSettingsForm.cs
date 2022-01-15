@@ -234,8 +234,8 @@ namespace Video_Clip_Sharer
                     this.bitrate.avgBitrate = val;
 
 
-                    double expectedFileSize = (int)((((double)this.bitrate.avgBitrate / 8192.0) * (this.duration / 1000.0)) + ((videoData.PrimaryAudioStream != null && !double.IsNaN(videoData.PrimaryAudioStream.BitRate)) ? ((videoData.PrimaryAudioStream.BitRate / 8192000.0) * (this.duration / 1000.0)) : 0));
-                    labelOutputFileSize.Text = "Expected Output File Size: " + expectedFileSize.ToString() + "MB";
+                    double expectedFileSize = ((((double)this.bitrate.avgBitrate / 8192.0) * (this.duration / 1000.0)) + ((videoData.PrimaryAudioStream != null && !double.IsNaN(videoData.PrimaryAudioStream.BitRate)) ? ((videoData.PrimaryAudioStream.BitRate / 8192000.0) * (this.duration / 1000.0)) : 0));
+                    labelOutputFileSize.Text = "Expected Output File Size: " + Math.Round(expectedFileSize, 2).ToString() + "MB";
 
                 }
             }

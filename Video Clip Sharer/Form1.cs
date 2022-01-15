@@ -44,8 +44,6 @@ namespace Video_Clip_Sharer
             pictureBoxRightCrop.BringToFront();
             pictureBoxTopCrop.BringToFront();
             onBoot();
-
-
         }
 
         async private void onBoot()
@@ -53,7 +51,7 @@ namespace Video_Clip_Sharer
             //Should check for ffmpeg/ffprobe binaries before allowing anything to be loaded.
             populateVideoList(""); //await loadTempJson();
             //await checkForFFmpeg();
-
+            this.Size = new Size(this.Size.Width, this.Size.Height - 200);
         }
         /*
         //After someone clicks the textBoxFfmpegBinaries, they get asked to give a directory. Once a direction is given. it checks if the files are there or not. If there is, set data section to that path.
@@ -290,7 +288,8 @@ namespace Video_Clip_Sharer
             }
             catch (Exception err)
             {
-                textBoxLog.Text = err.ToString();
+                //textBoxLog.Text = err.ToString();
+                advancedConsoleLog(err.ToString());
                 Console.WriteLine(err.ToString());
                 MessageBox.Show("Error initializing UI.");
             }
@@ -432,20 +431,25 @@ namespace Video_Clip_Sharer
             if (uiSettings.exportSettings.twoPass == true && uiSettings.exportSettings.outputFormat != "gif" && uiSettings.exportSettings.outputFormat != "audio/mp3")
             {
                 uiSettings.exportSettings.currentPass = 1;
-                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
+                advancedConsoleLog(await uiSettings.exportSettings.createFFmpegCommand());
+                //textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
                 uiSettings.exportSettings.currentPass = 2;
-                textBoxLog.Text += "\n" + await uiSettings.exportSettings.createFFmpegCommand();
+                //textBoxLog.Text += "\n" + await uiSettings.exportSettings.createFFmpegCommand();
+                advancedConsoleLog(await uiSettings.exportSettings.createFFmpegCommand());
                 uiSettings.exportSettings.currentPass = 1;
             } else
             {
-                textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
+                advancedConsoleLog(await uiSettings.exportSettings.createFFmpegCommand());
+                //textBoxLog.Text = await uiSettings.exportSettings.createFFmpegCommand();
             }
         }
 
 
         private void Form1_DragDrop_1(object sender, DragEventArgs e)
         {
+            
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            if (files == null) return;
             string file = files[0];
 
 
@@ -794,7 +798,7 @@ namespace Video_Clip_Sharer
                 int progress = (int)Math.Floor(((double)e.ProcessedDuration.TotalMilliseconds / (double)(uiSettings.exportSettings.getDuration())) * 100);
                 double secondsRemaining = ((double)uiSettings.exportSettings.getDuration() / 1000) - (double)e.ProcessedDuration.TotalSeconds;
                 double framesRemaining = uiSettings.exportSettings.fps * secondsRemaining;
-                textBoxLog.Text += "\n" + framesRemaining;
+                //textBoxLog.Text += "\n" + framesRemaining;
                 double timeTillComplete = (double)(framesRemaining / (double)e.Fps);
                 if (timeTillComplete < 100000)
                 {
@@ -852,7 +856,8 @@ namespace Video_Clip_Sharer
 
         private void OnError(object sender, ConversionErrorEventArgs e)
         {
-            textBoxLog.Text = e.Exception.ToString();
+            advancedConsoleLog(e.Exception.ToString());
+            //textBoxLog.Text = e.Exception.ToString();
             MessageBox.Show("Error when booting FFmpeg");
 
             Console.WriteLine(e.Exception);
@@ -942,14 +947,18 @@ namespace Video_Clip_Sharer
         }
 
 
-        //WHen it shifts, we need to make sure we change the audioTrack on VLC and the current audio track that we are editing when we change the volume bar.
+        //When it shifts, we need to make sure we change the audioTrack on VLC and the current audio track that we are editing when we change the volume bar.
         private void trackBarAudioTrack_ValueChanged(object sender, EventArgs e)
         {
-            axVLCPlugin21.audio.track = trackBarAudioTrack.Value;
-            checkBoxSaveAudioTrack.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].keep;
-            checkBoxNoiseReduction.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].noiseReduce;
-            trackBarVolume.Value = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].volume;
-            labelCurrentAudioTrack.Text = "Current Audio Track: " + axVLCPlugin21.audio.track;
+            if (uiSettings.exportSettings.audioTracks.Count > 0) //We need to make sure the audioTracks exist or might cause issues.
+            {
+                axVLCPlugin21.audio.track = trackBarAudioTrack.Value;
+                checkBoxSaveAudioTrack.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].keep;
+                checkBoxNoiseReduction.Checked = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].noiseReduce;
+                trackBarVolume.Value = uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].volume;
+                axVLCPlugin21.audio.volume = trackBarVolume.Value;
+                labelCurrentAudioTrack.Text = "Current Audio Track: " + axVLCPlugin21.audio.track;
+            }
         }
 
         //Event for when we change the trackBarVolume. Assuming 
@@ -1051,6 +1060,15 @@ namespace Video_Clip_Sharer
 
         private void buttonDev_Click(object sender, EventArgs e)
         {
+
+            if (textBoxLog.Visible)
+            {
+               this.Size = new Size(this.Size.Width, this.Size.Height - 200);
+            } else
+            {
+                this.Size = new Size(this.Size.Width, this.Size.Height + 200);
+
+            }
             textBoxLog.Visible = !textBoxLog.Visible;
             buttonTestPlayVideo.Visible = !buttonTestPlayVideo.Visible;
         }
@@ -1079,7 +1097,40 @@ namespace Video_Clip_Sharer
             }
         }
 
+        private void trackBarVolume_MouseUp(object sender, MouseEventArgs e)
+        {
+            //labelVolume.Text = trackBarVolume.Value.ToString();
+            if (uiSettings.exportSettings.audioTracks.Count > 0) //We need to make sure the audioTracks exist or might cause issues.
+            {
+                axVLCPlugin21.audio.volume = trackBarVolume.Value; //<-- im pretty sure spamming changes to this crashes the program.
+                //uiSettings.exportSettings.audioTracks[trackBarAudioTrack.Value - 1].volume = trackBarVolume.Value;
+            }
+        }
 
+        public void advancedConsoleLog(string str)
+        {
+            advancedConsoleLog(str, Color.DarkSlateGray);
+        }
+        public void advancedConsoleLog(string str, Color color)
+        {
+            DateTime time = DateTime.Now;
+            if (textBoxLog.TextLength == 0)
+            {
+                textBoxLog.Select(0, 0);
+
+            }
+            else
+            {
+                textBoxLog.Select(textBoxLog.TextLength, 0);
+
+            }
+            textBoxLog.SelectionColor = Color.Black;
+            textBoxLog.SelectedText += "[" + time.ToLocalTime().ToString() + "] ";
+            textBoxLog.SelectionColor = color;
+            textBoxLog.SelectedText += str + Environment.NewLine;
+
+
+        }
     }
 
 
