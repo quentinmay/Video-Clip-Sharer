@@ -508,6 +508,7 @@ namespace Video_Clip_Sharer
                     long middleTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     if (middleTime - timeStart > 3000 && shown == false)
                     {
+                        advancedConsoleLog("ERROR: This video directory is huge. Consider using a smaller one");
                         MessageBox.Show("This video directory is huge. Consider using a smaller one");
                         shown = true;
                     }
@@ -734,47 +735,43 @@ namespace Video_Clip_Sharer
         async private Task setExport(ExportSettings exportSettings)
         {
             Console.WriteLine("\nStarting export...");
-            try {
+            try
+            {
                 progressBarRender.Value = 0;
                 var inputFile = new MediaFile(exportSettings.videoPath);
-                
                 var ffmpeg = new Engine(Path.Combine(this.ffmpegDirectory, "ffmpeg.exe"));
-                //textBoxLog.Text = this.ffmpegDirectory;
                 ffmpeg.Progress += OnProgress;
                 ffmpeg.Data += OnData;
                 ffmpeg.Error += OnError;
                 ffmpeg.Complete += OnComplete;
                 cancelSource = new CancellationTokenSource();
-
                 if (uiSettings.exportSettings.twoPass == true && uiSettings.exportSettings.outputFormat != "gif" && uiSettings.exportSettings.outputFormat != "audio/mp3")
                 {
-                    //First Pass:
                     uiSettings.exportSettings.currentPass = 1;
                     string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
-                    //Second Pass:
-
                     cancelSource = new CancellationTokenSource();
                     uiSettings.exportSettings.currentPass = 2;
                     ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
                     uiSettings.exportSettings.currentPass = 1;
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
                     linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
-
-                } else
+                }
+                else
                 {
                     string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
                     linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
                 }
-
-
-            } catch(Exception err)
-            {
-                Console.WriteLine(err);
-                MessageBox.Show("Error while booting ffmpeg.");
             }
-            return;
+            catch (Exception err) { 
+                Console.WriteLine(err); 
+                
+                advancedConsoleLog("ERROR: Error while booting ffmpeg.");
+                advancedConsoleLog(err.ToString());
+                MessageBox.Show("Error while booting ffmpeg.");
+
+            };
 
 
         }
@@ -873,6 +870,7 @@ namespace Video_Clip_Sharer
             if (uiSettings.exportSettings.videoPath == null)
             {
                 MessageBox.Show("No video being edited right now.");
+                advancedConsoleLog("ERROR: No video being edited right now.");
                 return;
             }
             if (cancelSource == null) //checks to see if ffmpeg process already running. Don't want to run if there is already a render going.
@@ -889,6 +887,7 @@ namespace Video_Clip_Sharer
             }
             else
             {
+                advancedConsoleLog("ERROR: One clip is already rendering. Either cancel or wait for it to finish.");
                 MessageBox.Show("One clip is already rendering. Either cancel or wait for it to finish.");
             }
         }
@@ -928,6 +927,7 @@ namespace Video_Clip_Sharer
             catch (Exception err)
             {
                 Console.WriteLine(err.ToString());
+                advancedConsoleLog("ERROR: Failed to save to temp directory for some reason.");
                 MessageBox.Show("Failed to save to temp directory for some reason.");
             }
 
@@ -1034,6 +1034,34 @@ namespace Video_Clip_Sharer
         private void comboBoxOutputFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             uiSettings.exportSettings.outputFormat = comboBoxOutputFormat.SelectedItem.ToString();
+            switch(uiSettings.exportSettings.outputFormat)
+            {
+                case "gif": //Disable audio settings
+                    disableAudioSettings();
+                    enableVideoSettings();
+                    break;
+                case "audio/mp3": //Disable all video settings
+                    disableVideoSettings();
+                    enableAudioSettings();
+                    break;
+                case "h264"://Enable all settings.
+                case "libvpx-vp9": 
+                case "h264_nvenc":
+                    enableAudioSettings();
+                    enableVideoSettings();
+                    break;
+                default: //any format not accounted for. Need to add more 
+                    enableAudioSettings();
+                    enableVideoSettings();
+                    break;
+
+
+            }
+            //If were using advanced bitrate settings, disable quality
+            if (uiSettings.exportSettings.bitrate.minBitrate != 0 || uiSettings.exportSettings.bitrate.avgBitrate != 0 || uiSettings.exportSettings.bitrate.maxBitrate != 0)
+            {
+                disableVideoQualitySettings();
+            }
         }
 
         private void textBoxScaleX_TextChanged(object sender, EventArgs e)
@@ -1082,6 +1110,13 @@ namespace Video_Clip_Sharer
                     advancedSettings.ShowDialog();
                     uiSettings.exportSettings.bitrate = advancedSettings.bitrate;
                     uiSettings.exportSettings.twoPass = advancedSettings.twoPass;
+                    if (uiSettings.exportSettings.bitrate.minBitrate != 0 || uiSettings.exportSettings.bitrate.avgBitrate != 0 || uiSettings.exportSettings.bitrate.maxBitrate != 0)
+                    {
+                        disableVideoQualitySettings();
+                    } else if (uiSettings.exportSettings.outputFormat != "audio/mp3")
+                    {
+                        enableVideoQualitySettings();
+                    }
                 }
 
             }
@@ -1110,6 +1145,68 @@ namespace Video_Clip_Sharer
         public void advancedConsoleLog(string str)
         {
             advancedConsoleLog(str, Color.DarkSlateGray);
+        }
+
+        public void disableAudioSettings()
+        {
+            trackBarAudioTrack.Enabled = false;
+            labelCurrentAudioTrack.Enabled = false;
+            checkBoxNoiseReduction.Enabled = false;
+            checkBoxSaveAudioTrack.Enabled = false;
+            trackBarVolume.Enabled = false;
+            label4.Enabled = false;
+            labelVolume.Enabled = false;
+        }
+        public void enableAudioSettings()
+        {
+            trackBarAudioTrack.Enabled = true;
+            labelCurrentAudioTrack.Enabled = true;
+            checkBoxNoiseReduction.Enabled = true;
+            checkBoxSaveAudioTrack.Enabled = true;
+            trackBarVolume.Enabled = true;
+            label4.Enabled = true;
+            labelVolume.Enabled = true;
+        }
+        public void disableVideoSettings()
+        {
+            disableVideoQualitySettings();
+            trackBarFPS.Enabled = false;
+            label3.Enabled = false;
+            labelFPS.Enabled = false;
+            textBoxScaleX.Enabled = false;
+            textBoxScaleY.Enabled = false;
+            label6.Enabled = false;
+            label7.Enabled = false;
+            label8.Enabled = false;
+            checkBoxShowCrop.Enabled = false;
+            buttonClearCrop.Enabled = false;
+
+        }
+        public void enableVideoSettings()
+        {
+            enableVideoQualitySettings();
+            trackBarFPS.Enabled = true;
+            label3.Enabled = true;
+            labelFPS.Enabled = true;
+            textBoxScaleX.Enabled = true;
+            textBoxScaleY.Enabled = true;
+            label6.Enabled = true;
+            label7.Enabled = true;
+            label8.Enabled = true;
+            checkBoxShowCrop.Enabled = true;
+            buttonClearCrop.Enabled = true;
+        }
+        public void disableVideoQualitySettings()
+        {
+            trackBarQuality.Enabled = false;
+            label2.Enabled = false;
+            labelQuality.Enabled = false;
+        }
+        public void enableVideoQualitySettings()
+        {
+            trackBarQuality.Enabled = true;
+            label2.Enabled = true;
+            labelQuality.Enabled = true;
         }
         public void advancedConsoleLog(string str, Color color)
         {
