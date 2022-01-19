@@ -122,6 +122,7 @@ namespace Video_Clip_Sharer
 
                     return String.Join(" ", ffmpegCommandList);
                     break;
+                case "libx264":
                 case "libvpx-vp9": //Can just goto default since it works similar to h264
                 default: //any format not accounted for. Need to add more 
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
@@ -153,6 +154,9 @@ namespace Video_Clip_Sharer
         {
             switch (this.outputFormat)
             {
+                case "libx264":
+                    return "-c:v " + outputFormat;
+                    break;
                 case "h264_nvenc":
                     return "-c:v " + outputFormat;
                     break;
@@ -270,7 +274,8 @@ namespace Video_Clip_Sharer
                     case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
                         return "-crf " + quality + " -b:v 0";
                         break;
-                    case "Same As Source (usually h264)":
+                    case "libx264":
+                    case "Default (try remux)":
                         if (this.twoPass == false)
                         {
                             return "-crf " + quality;

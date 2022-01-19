@@ -16,17 +16,16 @@ namespace Video_Clip_Sharer
         public double duration { get; set; }
         FFMpegCore.IMediaAnalysis videoData { get; set; }
         public bool twoPass { get; set; }
-        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass)
+        public AdvancedSettingsForm(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass, string outputFormat)
         {
             InitializeComponent();
             this.bitrate = bitrate;
-
+            
             this.videoData = videoData;
             this.twoPass = twoPass;
-            populateVideoData(videoData, startTime, endTime, bitrate, twoPass);
-
+            populateVideoData(videoData, startTime, endTime, bitrate, twoPass, outputFormat);
         }
-        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass)
+        private void populateVideoData(FFMpegCore.IMediaAnalysis videoData, double startTime, double endTime, bitrate bitrate, bool twoPass, string outputFormat)
         {
             try
             {
@@ -49,7 +48,16 @@ namespace Video_Clip_Sharer
                 textBoxMinBitrate.Text = bitrate.minBitrate.ToString();
                 textBoxAvgBitrate.Text = bitrate.avgBitrate.ToString();
                 textBoxMaxBitrate.Text = bitrate.maxBitrate.ToString();
-                checkBoxTwoPass.Checked = twoPass;
+                switch(outputFormat)
+                {
+                    case "audio/mp3":
+                    case "gif":
+                        checkBoxTwoPass.Enabled = false;
+                        break;
+                    default:
+                        checkBoxTwoPass.Checked = twoPass;
+                        break;
+                }
 
             }
             catch (Exception err)

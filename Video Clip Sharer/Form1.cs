@@ -757,8 +757,13 @@ namespace Video_Clip_Sharer
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
                     linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
                 }
+
                 else
                 {
+                    if (uiSettings.exportSettings.twoPass == true && (uiSettings.exportSettings.outputFormat == "gif" || uiSettings.exportSettings.outputFormat == "audio/mp3"))
+                    {
+                        advancedConsoleLog("ERROR: Two pass can't be used with audio or gif. Running anyways with two-pass disabled.");
+                    }
                     string ffmpegCommand = await uiSettings.exportSettings.createFFmpegCommand();
                     await ffmpeg.ExecuteAsync(ffmpegCommand, cancelSource.Token);
                     linkLabelOutputPath.Text = uiSettings.exportSettings.outputName;
@@ -1105,7 +1110,7 @@ namespace Video_Clip_Sharer
         {
             if (this.uiSettings.exportSettings.videoPath != null)
             {
-                using (AdvancedSettingsForm advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate, uiSettings.exportSettings.twoPass))
+                using (AdvancedSettingsForm advancedSettings = new AdvancedSettingsForm(uiSettings.exportSettings.videoData, uiSettings.exportSettings.startTime, uiSettings.exportSettings.endTime, uiSettings.exportSettings.bitrate, uiSettings.exportSettings.twoPass, uiSettings.exportSettings.outputFormat))
                 {
                     advancedSettings.ShowDialog();
                     uiSettings.exportSettings.bitrate = advancedSettings.bitrate;
@@ -1196,6 +1201,13 @@ namespace Video_Clip_Sharer
             checkBoxShowCrop.Enabled = true;
             buttonClearCrop.Enabled = true;
         }
+        public void disableTwoPass()
+        {
+            trackBarQuality.Enabled = false;
+            label2.Enabled = false;
+            labelQuality.Enabled = false;
+
+        }
         public void disableVideoQualitySettings()
         {
             trackBarQuality.Enabled = false;
@@ -1210,6 +1222,7 @@ namespace Video_Clip_Sharer
         }
         public void advancedConsoleLog(string str, Color color)
         {
+
             DateTime time = DateTime.Now;
             if (textBoxLog.TextLength == 0)
             {
@@ -1221,11 +1234,19 @@ namespace Video_Clip_Sharer
                 textBoxLog.Select(textBoxLog.TextLength, 0);
 
             }
+
+
+            int scrollPosition = textBoxLog.GetPositionFromCharIndex(textBoxLog.TextLength).Y;
+
             textBoxLog.SelectionColor = Color.Black;
             textBoxLog.SelectedText += "[" + time.ToLocalTime().ToString() + "] ";
             textBoxLog.SelectionColor = color;
             textBoxLog.SelectedText += str + Environment.NewLine;
-
+            if (scrollPosition <= 162) //162 magic number because font size and textbox height. This autoscrolls to end only if we were previously at the bottom
+            {
+                textBoxLog.SelectionStart = textBoxLog.Text.Length;
+                textBoxLog.ScrollToCaret();
+            }
 
         }
     }

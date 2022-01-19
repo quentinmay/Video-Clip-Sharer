@@ -605,8 +605,9 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOutputFormat.FormattingEnabled = true;
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
-            "Same As Source (usually h264)",
+            "Default (try remux)",
             "h264_nvenc",
+            "libx264",
             "libvpx-vp9",
             "gif",
             "audio/mp3"});
