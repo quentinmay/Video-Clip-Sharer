@@ -219,6 +219,14 @@ namespace Video_Clip_Sharer
                     uiSettings.exportSettings.audioTracks.Add(new AudioTrack(audioStream));
                 }
             }
+            if (uiSettings.exportSettings.videoData.AudioStreams.Count == 0)
+            {
+                disableAudioSettings();
+            }
+            else
+            {
+                enableAudioSettings();
+            }
             if (uiSettings.exportSettings.fps == -1) uiSettings.exportSettings.fps = (double)uiSettings.exportSettings.videoData.PrimaryVideoStream.FrameRate;
             linkLabelVideoPath.Text = Path.GetFullPath(path);
             axVLCPlugin21.playlist.items.clear();
@@ -235,6 +243,10 @@ namespace Video_Clip_Sharer
             textBoxScaleX.Text = ""; //Set equal to none first so the event will trigger twice. NECESSARY
             textBoxScaleX.Text = uiSettings.exportSettings.videoData.PrimaryVideoStream.Width.ToString();
 
+            checkBoxNoiseReduction.Checked = false;
+            checkBoxSaveAudioTrack.Checked = true;
+
+            comboBoxOutputFormat.SelectedItem = comboBoxOutputFormat.Items[0];
             return;
 
         }

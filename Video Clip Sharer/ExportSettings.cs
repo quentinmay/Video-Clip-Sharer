@@ -209,6 +209,9 @@ namespace Video_Clip_Sharer
                 case "audio/mp3":
                     extension = ".mp3";
                     break;
+                case "h264_nvenc":
+                    extension = ".mp4";
+                    break;
                 default:
                     extension = Path.GetExtension(videoPath);
                     break;
