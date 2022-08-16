@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Video Clip Sharer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Video Clip Sharing application developed by Quentin May")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Video Clip Sharer")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4f4d9f05-ca01-4095-8238-d9543529c086")]
+[assembly: Guid("4f4d9f05-ca01-4095-8238-d9543529c087")]
 
 // Version information for an assembly consists of the following four values:
 //

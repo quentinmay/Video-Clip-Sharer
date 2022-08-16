@@ -272,7 +272,7 @@ namespace Video_Clip_Sharer
                 switch (this.outputFormat)
                 {
                     case "h264_nvenc":
-                        return "-qmin " + quality;
+                        return "-cq " + quality;
                         break;
                     case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
                         return "-crf " + quality + " -b:v 0";
