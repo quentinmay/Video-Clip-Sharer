@@ -103,6 +103,7 @@ namespace Video_Clip_Sharer
                     return String.Join(" ", ffmpegCommandList); ;
                     break;
                 case "h264_nvenc":
+                case "hevc_nvenc":
                     ffmpegCommandList.Add(await this.generateAudioTracksTag());
 
                     ffmpegCommandList.Add(await this.generateVFTag());
@@ -155,9 +156,11 @@ namespace Video_Clip_Sharer
             switch (this.outputFormat)
             {
                 case "libx264":
+                case "libx265":
                     return "-c:v " + outputFormat;
                     break;
                 case "h264_nvenc":
+                case "hevc_nvenc":
                     return "-c:v " + outputFormat;
                     break;
                 case "libvpx-vp9":
@@ -210,6 +213,9 @@ namespace Video_Clip_Sharer
                     extension = ".mp3";
                     break;
                 case "h264_nvenc":
+                case "hevc_nvenc":
+                case "libx264":
+                case "libx265":
                     extension = ".mp4";
                     break;
                 default:
@@ -272,12 +278,14 @@ namespace Video_Clip_Sharer
                 switch (this.outputFormat)
                 {
                     case "h264_nvenc":
+                    case "hevc_nvenc":
                         return "-cq " + quality;
                         break;
                     case "libvpx-vp9": //https://trac.ffmpeg.org/wiki/Encode/VP9
                         return "-crf " + quality + " -b:v 0";
                         break;
                     case "libx264":
+                    case "libx265":
                     case "Default (try remux)":
                         if (this.twoPass == false)
                         {

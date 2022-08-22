@@ -606,8 +606,10 @@ namespace Video_Clip_Sharer
             this.comboBoxOutputFormat.FormattingEnabled = true;
             this.comboBoxOutputFormat.Items.AddRange(new object[] {
             "Default (try remux)",
-            "h264_nvenc",
             "libx264",
+            "h264_nvenc",
+            "libx265",
+            "hevc_nvenc",
             "libvpx-vp9",
             "gif",
             "audio/mp3"});
